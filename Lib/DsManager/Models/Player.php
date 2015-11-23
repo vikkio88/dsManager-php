@@ -8,8 +8,10 @@
 
 namespace App\Lib\DsManager\Models;
 
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Player
+
+class Player extends Eloquent
 {
 
 }
