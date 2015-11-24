@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Lib\DsManager\Models;
+namespace App\Lib\DsManager\Models\Orm;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
+
 /**
- * Class Team
+ * Class Player
  * @package App\Lib\DsManager\Models
  */
-class Team extends Eloquent
+class Player extends Eloquent
 {
-	protected $roster;
+
 }

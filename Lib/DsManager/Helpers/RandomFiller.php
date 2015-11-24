@@ -4,6 +4,7 @@
 namespace App\Lib\DsManager\Helpers;
 
 
+use App\Lib\DsManager\Models\Coach;
 use App\Lib\DsManager\Models\Player;
 use App\Lib\DsManager\Models\Team;
 use App\Lib\Helpers\Config;
@@ -19,6 +20,9 @@ class RandomFiller
 	 */
 	protected $faker;
 
+	/**
+	 * @var string
+	 */
 	protected $locale;
 
 	/**
@@ -36,13 +40,31 @@ class RandomFiller
 	public function getPlayer()
 	{
 		$player = new Player;
-		$player->name = $this->faker->firstNameMale . " " . $this->faker->lastName;
+		$player->name = $this->faker->firstNameMale;
+		$player->surname = $this->faker->lastName;
 		$player->role = $this->getRole();
 		$player->nationality = $this->locale;
-		$player->age = $this->faker->numberBetween(16, 38);
-		$player->skillAvg = $this->faker->numberBetween(40, 100);
+		$player->age = rand(16, 38);
+		$player->skillAvg = rand(40, 100);
 
 		return $player;
+	}
+
+
+	/**
+	 * @return Coach
+	 */
+	public function getCoach()
+	{
+		$coach = new Coach;
+		$coach->name = $this->faker->firstNameMale;
+		$coach->surname = $this->faker->lastName;
+		$coach->favouriteModule = $this->getModule();
+		$coach->nationality = $this->locale;
+		$coach->age = rand(33, 68);
+		$coach->skillAvg = rand(40, 100);
+
+		return $coach;
 	}
 
 	/**
@@ -55,6 +77,19 @@ class RandomFiller
 		return $roles[0];
 	}
 
+	/**
+	 * @return mixed
+	 */
+	public function getModule()
+	{
+		$modules = array_keys(Config::get('modules.modules', 'api/'));
+		shuffle($modules);
+		return $modules[0];
+	}
+
+	/**
+	 * @return array
+	 */
 	public function getTeam()
 	{
 		$players = [];

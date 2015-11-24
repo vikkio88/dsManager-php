@@ -2,9 +2,9 @@
 
 
 /**
- * Class PlayersTest
+ * Class ModelsTest
  */
-class PlayersTest extends \PHPUnit_Framework_TestCase
+class ModelsTest extends \PHPUnit_Framework_TestCase
 {
 
 
@@ -16,7 +16,31 @@ class PlayersTest extends \PHPUnit_Framework_TestCase
 	{
 		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller();
 		$player = $rndF->getPlayer();
-		var_dump($player->attributesToArray());
+		var_dump($player->toArray());
+	}
+
+	/**
+	 * @group Coach
+	 * @group config
+	 */
+	public function testGetRandomCoach()
+	{
+		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller();
+		$coach = $rndF->getCoach();
+		var_dump($coach->toArray());
+	}
+
+	/**
+	 * @group Coaches
+	 * @group config
+	 */
+	public function testGetRandomCoaches()
+	{
+		foreach (\App\Lib\Helpers\Config::get('generic.localesSmall', 'api/') as $nat) {
+			$rndF = new \App\Lib\DsManager\Helpers\RandomFiller($nat);
+			$coach = $rndF->getCoach();
+			var_dump($coach->toArray());
+		}
 	}
 
 	/**
@@ -28,7 +52,7 @@ class PlayersTest extends \PHPUnit_Framework_TestCase
 		foreach (\App\Lib\Helpers\Config::get('generic.localesSmall', 'api/') as $nat) {
 			$rndF = new \App\Lib\DsManager\Helpers\RandomFiller($nat);
 			$player = $rndF->getPlayer();
-			var_dump($player->attributesToArray());
+			var_dump($player->toArray());
 		}
 	}
 
@@ -41,7 +65,7 @@ class PlayersTest extends \PHPUnit_Framework_TestCase
 		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller("es_ES");
 		$team = $rndF->getTeam();
 		foreach ($team as $player) {
-			var_dump($player->attributesToarray());
+			var_dump($player->toArray());
 		}
 
 	}

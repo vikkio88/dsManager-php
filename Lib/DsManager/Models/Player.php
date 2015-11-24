@@ -1,15 +1,21 @@
 <?php
 
 namespace App\Lib\DsManager\Models;
-
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
+use App\Lib\DsManager\Models\Common\Person;
 
 /**
  * Class Player
  * @package App\Lib\DsManager\Models
  */
-class Player extends Eloquent
+class Player extends Person
 {
+	public $role;
 
+	public function toArray()
+	{
+		$result = parent::toArray();
+		$result["role"] = $this->role;
+
+		return $result;
+	}
 }
