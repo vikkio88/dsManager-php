@@ -59,7 +59,17 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 	{
 		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller("it_IT");
 		$team = $rndF->getTeam();
-		var_dump($team->toArray());
+
+		//var_dump($team->toArray());
+		echo "\n" . $team->name . " avg:";
+		echo $team->getAvgSkillTeam();
+
+		echo "\n Adding player:";
+		$player = $rndF->getPlayer();
+		var_dump($player->toArray());
+		$team->roster[] = $player;
+		echo "\n new avg: ";
+		echo $team->getAvgSkillTeam();
 
 	}
 

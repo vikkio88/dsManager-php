@@ -40,4 +40,34 @@ class Team
 		$result['roster'] = $roster;
 		return $result;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getAvgSkillTeam()
+	{
+		$c = 0;
+		$tot = 0;
+		foreach ($this->roster as $player) {
+			$tot += $player->skillAvg;
+			$c++;
+		}
+
+		return bcdiv($tot, $c, 2);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAvgAgeTeam()
+	{
+		$c = 0;
+		$tot = 0;
+		foreach ($this->roster as $player) {
+			$tot += $player->age;
+			$c++;
+		}
+
+		return bcdiv($tot, $c, 2);
+	}
 }
