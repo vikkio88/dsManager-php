@@ -9,7 +9,7 @@ class PlayersTest extends \PHPUnit_Framework_TestCase
 
 
 	/**
-	 * @group Players
+	 * @group Player
 	 * @group config
 	 */
 	public function testGetRandomPlayer()
@@ -17,6 +17,19 @@ class PlayersTest extends \PHPUnit_Framework_TestCase
 		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller();
 		$player = $rndF->getPlayer();
 		var_dump($player->attributesToArray());
+	}
+
+	/**
+	 * @group Players
+	 * @group config
+	 */
+	public function testGetRandomPlayers()
+	{
+		foreach (\App\Lib\Helpers\Config::get('generic.localesSmall', 'api/') as $nat) {
+			$rndF = new \App\Lib\DsManager\Helpers\RandomFiller($nat);
+			$player = $rndF->getPlayer();
+			var_dump($player->attributesToArray());
+		}
 	}
 
 	/**
