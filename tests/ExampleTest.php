@@ -1,9 +1,15 @@
 <?php
 
 
+/**
+ * Class ExampleTest
+ */
 class ExampleTest extends PHPUnit_Framework_TestCase
 {
 
+	/**
+	 *
+	 */
 	public function testIlluminateConnection()
 	{
 		Illuminate\Database\Capsule\Manager::schema()->create('test', function ($table) {
