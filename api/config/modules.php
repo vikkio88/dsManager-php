@@ -4,7 +4,6 @@ return [
 	'modules' => [
 		"4-4-2" => [
 			'roles'=>[1,1,2,1,1,2,1,0,2,0]
-
 		],
 		"4-3-3" => [
 			'roles'=>[1,1,2,1,0,3,0,1,1,1]
@@ -34,7 +33,6 @@ return [
 	'roles' => [
 		'GK' => [
 			'description' => 'Goalkeeper'
-
 		],
 		'LD' => [
 			'description' => 'Left Defender'
