@@ -9,8 +9,14 @@ use App\Lib\DsManager\Models\Common\Person;
  */
 class Player extends Person
 {
+	/**
+	 * @var
+	 */
 	public $role;
 
+	/**
+	 * @return array
+	 */
 	public function toArray()
 	{
 		$result = parent::toArray();

@@ -87,16 +87,22 @@ class RandomFiller
 		return $modules[0];
 	}
 
+
 	/**
-	 * @return array
+	 * @return Team
 	 */
 	public function getTeam()
 	{
+		$team = new Team;
+		$team->name = $this->faker->city;
+		$team->coach = $this->getCoach();
 		$players = [];
 		for ($i = 0; $i < 12; $i++) {
 			$players[] = $this->getPlayer();
 		}
-		return $players;
+		$team->roster = $players;
+
+		return $team;
 	}
 
 }

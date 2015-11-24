@@ -10,8 +10,14 @@ use App\Lib\DsManager\Models\Common\Person;
  */
 class Coach extends Person
 {
+	/**
+	 * @var
+	 */
 	public $favouriteModule;
 
+	/**
+	 * @return array
+	 */
 	public function toArray()
 	{
 		$result = parent::toArray();

@@ -10,7 +10,6 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @group Player
-	 * @group config
 	 */
 	public function testGetRandomPlayer()
 	{
@@ -21,7 +20,6 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @group Coach
-	 * @group config
 	 */
 	public function testGetRandomCoach()
 	{
@@ -32,7 +30,6 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @group Coaches
-	 * @group config
 	 */
 	public function testGetRandomCoaches()
 	{
@@ -45,7 +42,6 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 
 	/**
 	 * @group Players
-	 * @group config
 	 */
 	public function testGetRandomPlayers()
 	{
@@ -57,16 +53,13 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @group PlayersTeam
-	 * @group config
+	 * @group Team
 	 */
 	public function testGetRandomTeam()
 	{
-		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller("es_ES");
+		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller("it_IT");
 		$team = $rndF->getTeam();
-		foreach ($team as $player) {
-			var_dump($player->toArray());
-		}
+		var_dump($team->toArray());
 
 	}
 
