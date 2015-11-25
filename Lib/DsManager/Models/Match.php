@@ -10,70 +10,117 @@ use App\Lib\DsManager\Helpers\Randomizer;
  */
 class Match
 {
-	private $homeTeam;
-	private $awayTeam;
+    private $homeTeam;
+    private $awayTeam;
 
-	/**
-	 * Match constructor.
-	 * @param Team $home
-	 * @param Team $away
-	 */
-	public function __construct(Team $home, Team $away)
-	{
-		$this->homeTeam = $home;
-		$this->awayTeam = $away;
-	}
+    /**
+     * Match constructor.
+     * @param Team $home
+     * @param Team $away
+     */
+    public function __construct(Team $home, Team $away)
+    {
+        $this->homeTeam = $home;
+        $this->awayTeam = $away;
+    }
 
-	/**
-	 * @return MatchResult
-	 */
-	public function simulate()
-	{
-		$homePoints = $this->homeTeam->getAvgSkill();
-		$awayPoints = $this->awayTeam->getAvgSkill();
+    /**
+     * @return MatchResult
+     */
+    public function simulate()
+    {
+        $homePoints = $this->homeTeam->getAvgSkill();
+        $awayPoints = $this->awayTeam->getAvgSkill();
 
-		$goalHome = 0;
-		$goalAway = 0;
+        $goalHome = 0;
+        $goalAway = 0;
 
-		if (Randomizer::boolOnPercentage(80)) {
+        if (Randomizer::boolOnPercentage(80)) {
 
-			if (($homePoints - $awayPoints) < 0) {
-				$goalAway = ($awayPoints - $homePoints) % 6;
-				$goalHome += $this->chance();
-				$goalAway += $this->chance();
-				$goalHome += $this->bonusHome();
-			} else {
-				$goalHome = ($homePoints - $awayPoints) % 6;
-				$goalAway += $this->chance();
-				$goalHome += $this->bonusHome();
-			}
+            if (($homePoints - $awayPoints) < 0) {
+                $goalAway = ($awayPoints - $homePoints) % 6;
+                $goalHome += $this->chance();
+                $goalAway += $this->chance();
+                $goalHome += $this->bonusHome();
+            } else {
+                $goalHome = ($homePoints - $awayPoints) % 6;
+                $goalAway += $this->chance();
+                $goalHome += $this->bonusHome();
+            }
 
-		} else {
-			$goalHome += $this->chance();
-			$goalAway += $this->chance();
-			$goalHome += $this->bonusHome();
-		}
+        } else {
+            $goalHome += $this->chance();
+            $goalAway += $this->chance();
+            $goalHome += $this->bonusHome();
+        }
 
-		$avgAgeHome = $this->homeTeam->getAvgAge();
-		$avgAgeAway = $this->awayTeam->getAvgAge();
+        $avgAgeHome = $this->homeTeam->getAvgAge();
+        $avgAgeAway = $this->awayTeam->getAvgAge();
 
-		if ( $avgAgeHome > 29 ) { $goalHome += $this->bonusHome(); }
-		if ( $avgAgeAway > 29 ) { $goalAway += $this->bonusHome(); }
+        //Bonus on AvgAge
+        if ($avgAgeHome > 29) {
+            $goalHome += $this->bonusHome();
+        }
+        if ($avgAgeAway > 29) {
+            $goalAway += $this->bonusHome();
+        }
 
-		if ( $avgAgeHome < 24 ) { $goalHome += $this->bonusHome(); }
-		if ( $avgAgeAway < 24 ) { $goalAway += $this->bonusHome(); }
+        if ($avgAgeHome < 24) {
+            $goalHome += $this->bonusHome();
+        }
+        if ($avgAgeAway < 24) {
+            $goalAway += $this->bonusHome();
+        }
 
-		return new MatchResult($goalHome, $goalAway, $this->homeTeam, $this->awayTeam);
-	}
 
-	private function chance()
-	{
-		return rand(0, 3);
-	}
+        //Bonus on Good GoalKeeper
+        $goalies = $this->homeTeam->getBestPlayerForRole("GK");
+        $goalAway -= $this->bonusGoalkeeper($goalies);
+        $goalies = $this->awayTeam->getBestPlayerForRole("GK");
+        $goalHome -= $this->bonusGoalkeeper($goalies);
+        //
 
-	private function bonusHome()
-	{
-		return Randomizer::boolOnPercentage(66) ? 1 : 0;
-	}
+        $homeModule = new Module($this->homeTeam->coach->favouriteModule);
+        $awayModule = new Module($this->awayTeam->coach->favouriteModule);
+
+        if ($homeModule->isOffensive()) {
+            $goalHome += Randomizer::boolOnPercentage(50) ? rand(1, 2) : 0;
+            $goalAway += Randomizer::boolOnPercentage(20) ? 1:0;
+        }
+        if($awayModule->isOffensive()){
+            $goalAway += Randomizer::boolOnPercentage(50) ? rand(1, 2) : 0;
+            $goalHome += Randomizer::boolOnPercentage(20) ? 1:0;
+        }
+
+        if ($awayModule->isDefensive()) {
+            $goalHome -= Randomizer::boolOnPercentage(50) ? 1 : 0;
+        }
+        if($homeModule->isDefensive()){
+            $goalAway -= Randomizer::boolOnPercentage(50) ? 1 : 0;
+        }
+
+
+        $goalHome = $goalHome < 0 ? 0 : $goalHome;
+        $goalAway = $goalAway < 0 ? 0 : $goalAway;
+        return new MatchResult($goalHome, $goalAway, $this->homeTeam, $this->awayTeam);
+    }
+
+    private function bonusGoalKeeper($goalkeeper)
+    {
+
+        $skillGoalkeeper = empty($goalkeeper) ? 1 : $goalkeeper->skillAvg;
+        return (Randomizer::boolOnPercentage($skillGoalkeeper) ? 1 : 0);
+
+    }
+
+    private function chance()
+    {
+        return rand(0, 3);
+    }
+
+    private function bonusHome()
+    {
+        return Randomizer::boolOnPercentage(66) ? 1 : 0;
+    }
 
 }
