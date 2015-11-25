@@ -41,10 +41,34 @@ class ModuleConfigurationTest extends \PHPUnit_Framework_TestCase
 			echo "\nto play $key\n";
 			$this->assertNotEmpty($module["roles"]);
 			foreach ($module["roles"] as $index => $playNum) {
-				if($playNum != 0)
+				if ($playNum != 0)
 					echo $playNum . " " . $roles[$rolesKeys[$index]]["description"] . " ";
 			}
 		}
+	}
+
+	/**
+	 * @group rand
+	 *
+	 */
+	public function testRandomizer()
+	{
+		$yes = 0;
+		$no = 0;
+		echo "\n";
+
+		for ($i = 1; $i <= 100; $i++) {
+			echo $i . " . ";
+			if (\App\Lib\DsManager\Helpers\Randomizer::boolOnPercentage(20)) {
+				echo "yes";
+				$yes++;
+			} else {
+				echo "nope";
+				$no++;
+			}
+			echo "\n $yes - $no\n";
+		}
+
 	}
 
 }

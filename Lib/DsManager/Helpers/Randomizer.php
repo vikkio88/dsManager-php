@@ -16,7 +16,7 @@ class Randomizer
 	 */
 	public static function boolOnPercentage($percentage)
 	{
-		return (rand(0, 100) > $percentage);
+		return (rand(0, 100) < $percentage);
 	}
 
 }
