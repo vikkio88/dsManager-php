@@ -44,7 +44,7 @@ class Team
 	/**
 	 * @return string
 	 */
-	public function getAvgSkillTeam()
+	public function getAvgSkill()
 	{
 		$c = 0;
 		$tot = 0;
@@ -59,7 +59,7 @@ class Team
 	/**
 	 * @return string
 	 */
-	public function getAvgAgeTeam()
+	public function getAvgAge()
 	{
 		$c = 0;
 		$tot = 0;
