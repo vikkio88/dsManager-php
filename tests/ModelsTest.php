@@ -85,12 +85,30 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 		for ($i = 1; $i <= 20; $i++) {
 			echo "\n\n-------------";
 			$team = $rndF->getTeam();
-			echo "\n team: ".$team->name;
+			echo "\n team: " . $team->name;
 			echo "\n skill avg: ";
 			echo $team->getAvgSkill();
 			echo "\n age avg: ";
 			echo $team->getAvgAge();
 		}
+	}
+
+	/**
+	 * @group Match
+	 */
+	public function testGetRandomMatch()
+	{
+		for ($i = 1; $i <= 20; $i++) {
+			$rndF = new \App\Lib\DsManager\Helpers\RandomFiller("it_IT");
+			$spanish = $rndF->getTeam();
+			$rndF = new \App\Lib\DsManager\Helpers\RandomFiller("it_IT");
+			$italian = $rndF->getTeam();
+
+			echo "\n" . $italian->name . "(".$italian->getAvgSkill().") - " . $spanish->name ."(".$spanish->getAvgSkill().") ...... ";
+			$result = (new \App\Lib\DsManager\Models\Match($italian, $spanish))->simulate()->toArray();
+			echo $result['goalHome'] . " - " . $result['goalAway'];
+		}
+
 	}
 
 }

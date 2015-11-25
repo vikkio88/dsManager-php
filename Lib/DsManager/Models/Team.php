@@ -6,10 +6,6 @@ namespace App\Lib\DsManager\Models;
  * Class Team
  * @package App\Lib\DsManager\Models
  */
-/**
- * Class Team
- * @package App\Lib\DsManager\Models
- */
 class Team
 {
 	/**
@@ -69,5 +65,20 @@ class Team
 		}
 
 		return bcdiv($tot, $c, 2);
+	}
+
+	/**
+	 * @param string $role
+	 * @return array
+	 */
+	public function getPlayerForRole(string $role)
+	{
+		$result = [];
+		foreach ($this->roster as $player) {
+			if($player->role == $role){
+				$result[] = $player;
+			}
+		}
+		return $result;
 	}
 }
