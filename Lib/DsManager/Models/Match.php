@@ -35,11 +35,8 @@ class Match
 	 */
 	public function simulate()
 	{
-
 		$homePoints = $this->homeTeam->getAvgSkill();
 		$awayPoints = $this->awayTeam->getAvgSkill();
-		echo "\nhb: ".$homePoints;
-		echo "\nab: ".$awayPoints;
 
 		$homePoints += $this->malusModule(
 			$this->homeTeam->coach->favouriteModule,
@@ -49,9 +46,6 @@ class Match
 			$this->awayTeam->coach->favouriteModule,
 			$this->awayTeam->playersPerRoleArray()
 		);
-
-		echo "\nha: ".$homePoints;
-		echo "\naa: ".$awayPoints."\n";
 
 		$goalHome = 0;
 		$goalAway = 0;
@@ -120,7 +114,6 @@ class Match
 			$goalAway -= Randomizer::boolOnPercentage(50) ? 1 : 0;
 		}
 
-
 		$goalHome = $goalHome < 0 ? 0 : $goalHome;
 		$goalAway = $goalAway < 0 ? 0 : $goalAway;
 		return new MatchResult($goalHome, $goalAway, $this->homeTeam, $this->awayTeam);
@@ -163,7 +156,7 @@ class Match
 	{
 		$module = new Module($moduleString);
 		if ($module->isApplicableToArray($playersRoleArray)) {
-			return rand(1,10);
+			return rand(1, 10);
 		} else {
 			return (-1) * rand(1, 10);
 		}
