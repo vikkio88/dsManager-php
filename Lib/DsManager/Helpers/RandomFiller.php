@@ -34,15 +34,17 @@ class RandomFiller
 		$this->faker = \Faker\Factory::create($locale);
 	}
 
+
 	/**
+	 * @param null $forcedRole
 	 * @return Player
 	 */
-	public function getPlayer()
+	public function getPlayer($forcedRole = null)
 	{
 		$player = new Player;
 		$player->name = $this->faker->firstNameMale;
 		$player->surname = $this->faker->lastName;
-		$player->role = $this->getRole();
+		$player->role = $forcedRole == null ? $this->getRole() : $forcedRole;
 		$player->nationality = $this->locale;
 		$player->age = rand(16, 38);
 		$player->skillAvg = rand(40, 100);
@@ -97,9 +99,17 @@ class RandomFiller
 		$team->name = $this->faker->city;
 		$team->coach = $this->getCoach();
 		$players = [];
-		for ($i = 0; $i < 12; $i++) {
+		for ($i = 0; $i < 11; $i++) {
 			$players[] = $this->getPlayer();
 		}
+
+		//Adding some forced role
+		$players[] = $this->getPlayer("GK");
+		$players[] = $this->getPlayer("CD");
+		$players[] = $this->getPlayer("CD");
+		$players[] = $this->getPlayer("CM");
+		//
+
 		$team->roster = $players;
 
 		return $team;
