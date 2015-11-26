@@ -131,7 +131,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 			echo "\n";
 			print_r($module->getRoleNeeded());
 			echo "\napplicable? ";
-			if($module->isApplicable($team)){
+			if($module->isApplicableToTeam($team)){
 				echo " yes";
 			}else{
 				echo " no";

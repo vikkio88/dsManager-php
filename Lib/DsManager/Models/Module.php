@@ -71,10 +71,14 @@ class Module
 	 * @param Team $team
 	 * @return bool
 	 */
-	public function isApplicable(Team $team)
+	public function isApplicableToTeam(Team $team)
+	{
+		return $this->isApplicableToArray($team->playersPerRoleArray());
+	}
+
+	public function isApplicableToArray($playersForRole)
 	{
 		$roles = $this->getRoleNeeded();
-		$playersForRole = $team->playersPerRoleArray();
 		foreach ($roles as $role => $numbP) {
 			if (!(isset($playersForRole[$role]) && $playersForRole[$role] >= $numbP)) {
 				return false;
