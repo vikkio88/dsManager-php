@@ -99,7 +99,7 @@ class RandomFiller
 		$team->name = $this->faker->city;
 		$team->coach = $this->getCoach();
 		$players = [];
-		for ($i = 0; $i < 11; $i++) {
+		for ($i = 0; $i < 10; $i++) {
 			$players[] = $this->getPlayer();
 		}
 
@@ -108,6 +108,8 @@ class RandomFiller
 		$players[] = $this->getPlayer("CD");
 		$players[] = $this->getPlayer("CD");
 		$players[] = $this->getPlayer("CM");
+		$players[] = $this->getPlayer("CM");
+		$players[] = $this->getPlayer("CS");
 		//
 
 		$team->roster = $players;

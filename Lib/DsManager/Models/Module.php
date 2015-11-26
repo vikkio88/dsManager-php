@@ -74,9 +74,9 @@ class Module
 	public function isApplicable(Team $team)
 	{
 		$roles = $this->getRoleNeeded();
-		foreach ($roles as $role => $count) {
-			if (count($team->getPlayersForRole($role)) < $count) {
-				echo "missing " . $role;
+		$playersForRole = $team->playersPerRoleArray();
+		foreach ($roles as $role => $numbP) {
+			if (!(isset($playersForRole[$role]) && $playersForRole[$role] >= $numbP)) {
 				return false;
 			}
 		}
