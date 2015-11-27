@@ -73,6 +73,9 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 		echo "\n age avg: ";
 		echo $team->getAvgAge();
 
+		echo "\ncoach:";
+		print_r($team->coach->toArray());
+
 	}
 
 	/**

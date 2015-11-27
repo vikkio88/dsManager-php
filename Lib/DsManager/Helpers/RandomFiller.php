@@ -114,22 +114,24 @@ class RandomFiller
 		$team = new Team;
 		$team->name = $this->getTeamName();
 		$team->nationality = $this->nationalityFromLocale($this->locale);
-		$team->coach = $this->getCoach();
 		$players = [];
 		for ($i = 0; $i < 10; $i++) {
 			$players[] = $this->getPlayer();
 		}
 
 		//Adding some forced role
-		$players[] = $this->getPlayer("GK");
-		$players[] = $this->getPlayer("CD");
-		$players[] = $this->getPlayer("CD");
-		$players[] = $this->getPlayer("CM");
-		$players[] = $this->getPlayer("CM");
-		$players[] = $this->getPlayer("CS");
+		$players[] = $this->getPlayer("GK", $this->getLocale());
+		$players[] = $this->getPlayer("CD", $this->getLocale());
+		$players[] = $this->getPlayer("CD", $this->getLocale());
+		$players[] = $this->getPlayer("CM", $this->getLocale());
+		$players[] = $this->getPlayer("CM", $this->getLocale());
+		$players[] = $this->getPlayer("CS", $this->getLocale());
 		//
 
 		$team->roster = $players;
+		//setting random Nationality Coach (20%)
+		$coachNationality = Randomizer::boolOnPercentage(20) ? $this->getLocale() : null;
+		$team->coach = $this->getCoach($coachNationality);
 
 		return $team;
 	}

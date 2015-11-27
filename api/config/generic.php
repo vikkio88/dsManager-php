@@ -70,7 +70,9 @@ return [
 		'da_DK',
 		'de_DE',
 		'sk_SK',
+		'hu_HU',
 		'ro_MD',
+		'tr_TR'
 	]
 ];
 
