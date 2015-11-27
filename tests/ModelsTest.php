@@ -14,8 +14,8 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 	public function testGetRandomPlayer()
 	{
 		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller();
-		$player = $rndF->getPlayer();
-		var_dump($player->toArray());
+		$player = $rndF->getPlayer(null, $rndF->getLocale());
+		print_r($player->toArray());
 	}
 
 	/**
@@ -25,7 +25,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 	{
 		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller();
 		$coach = $rndF->getCoach();
-		var_dump($coach->toArray());
+		print_r($coach->toArray());
 	}
 
 	/**
@@ -36,7 +36,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 		foreach (\App\Lib\Helpers\Config::get('generic.localesSmall', 'api/') as $nat) {
 			$rndF = new \App\Lib\DsManager\Helpers\RandomFiller($nat);
 			$coach = $rndF->getCoach();
-			var_dump($coach->toArray());
+			print_r($coach->toArray());
 		}
 	}
 
@@ -48,7 +48,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 		foreach (\App\Lib\Helpers\Config::get('generic.localesSmall', 'api/') as $nat) {
 			$rndF = new \App\Lib\DsManager\Helpers\RandomFiller($nat);
 			$player = $rndF->getPlayer();
-			var_dump($player->toArray());
+			print_r($player->toArray());
 		}
 	}
 
