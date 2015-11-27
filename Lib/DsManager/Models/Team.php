@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Lib\DsManager\Models;
+use App\Lib\DsManager\Models\Common\DsManagerModel;
 
 /**
  * Class Team
  * @package App\Lib\DsManager\Models
  */
-class Team
+class Team extends DsManagerModel
 {
 	/**
 	 * @var
@@ -121,5 +122,30 @@ class Team
 			$result[$player->role] = isset($result[$player->role]) ? $result[$player->role] + 1 : 1;
 		}
 		return $result;
+	}
+
+	/**
+	 * @param array $array
+	 * @return mixed
+	 */
+	public static function fromArray($array = [])
+	{
+		$roster = $array['roster'];
+		$coach = $array['coach'];
+		unset($array['roster']);
+		unset($array['coach']);
+
+		$team = parent::fromArray($array);
+
+		$team->coach = Coach::fromArray($coach);
+		$players = [];
+		foreach ($roster as $roasterP) {
+			$players[] = Player::fromArray($roasterP);
+		}
+
+		$team->roster = $players;
+
+		return $team;
+
 	}
 }

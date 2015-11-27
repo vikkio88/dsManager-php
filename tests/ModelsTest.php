@@ -15,7 +15,11 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 	{
 		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller();
 		$player = $rndF->getPlayer(null, $rndF->getLocale());
-		print_r($player->toArray());
+		$array = $player->toArray();
+		print_r($array);
+
+		$newPlayer = \App\Lib\DsManager\Models\Player::fromArray($array);
+		print_r($newPlayer->toArray());
 	}
 
 	/**

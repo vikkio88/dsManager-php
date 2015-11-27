@@ -18,7 +18,7 @@ class Player extends Person
 	/**
 	 * @var
 	 */
-	private $val;
+	public $val;
 
 	/**
 	 * @return array

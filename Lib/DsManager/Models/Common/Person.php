@@ -6,16 +6,38 @@ namespace App\Lib\DsManager\Models\Common;
 
 use App\Lib\DsManager\Helpers\Randomizer;
 
-abstract class Person
+abstract class Person extends DsManagerModel
 {
+	/**
+	 * @var
+	 */
 	public $name;
+	/**
+	 * @var
+	 */
 	public $surname;
+	/**
+	 * @var
+	 */
 	public $nationality;
+	/**
+	 * @var
+	 */
 	public $age;
+	/**
+	 * @var
+	 */
 	public $skillAvg;
+	/**
+	 * @var
+	 */
 	public $wageReq;
 
-	public function toArray(){
+	/**
+	 * @return array
+	 */
+	public function toArray()
+	{
 		$result = [];
 		$result['name'] = $this->name;
 		$result['surname'] = $this->surname;
