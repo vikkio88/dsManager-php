@@ -71,4 +71,19 @@ class ModuleConfigurationTest extends \PHPUnit_Framework_TestCase
 
 	}
 
+	/**
+	 * @group randFiller
+	 *
+	 */
+	public function testRandomFiller()
+	{
+		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller();
+		echo "\n";
+		for ($i = 1; $i <= 10; $i++) {
+			echo $rndF->getLocale();
+			echo "\n";
+		}
+		echo "\n";
+	}
+
 }

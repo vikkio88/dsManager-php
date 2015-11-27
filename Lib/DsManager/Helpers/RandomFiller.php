@@ -25,8 +25,10 @@ class RandomFiller
 	 */
 	protected $locale;
 
+
 	/**
 	 * RandomFiller constructor.
+	 * @param string $locale
 	 */
 	public function __construct($locale = "it_IT")
 	{
@@ -34,18 +36,28 @@ class RandomFiller
 		$this->faker = \Faker\Factory::create($locale);
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getTeamName()
+	{
+		return $this->faker->city;
+	}
+
 
 	/**
 	 * @param null $forcedRole
+	 * @param null $locale
 	 * @return Player
 	 */
-	public function getPlayer($forcedRole = null)
+	public function getPlayer($forcedRole = null, $locale = null)
 	{
+		$this->setFaker($locale);
 		$player = new Player;
 		$player->name = $this->faker->firstNameMale;
 		$player->surname = $this->faker->lastName;
 		$player->role = $forcedRole == null ? $this->getRole() : $forcedRole;
-		$player->nationality = $this->locale;
+		$player->nationality = $this->nationalityFromLocale($this->locale);
 		$player->age = rand(16, 38);
 		$player->skillAvg = rand(40, 100);
 
@@ -54,15 +66,17 @@ class RandomFiller
 
 
 	/**
+	 * @param null $locale
 	 * @return Coach
 	 */
-	public function getCoach()
+	public function getCoach($locale = null)
 	{
+		$this->setFaker($locale);
 		$coach = new Coach;
 		$coach->name = $this->faker->firstNameMale;
 		$coach->surname = $this->faker->lastName;
 		$coach->favouriteModule = $this->getModule();
-		$coach->nationality = $this->locale;
+		$coach->nationality = $this->nationalityFromLocale($this->locale);
 		$coach->age = rand(33, 68);
 		$coach->skillAvg = rand(40, 100);
 
@@ -91,12 +105,15 @@ class RandomFiller
 
 
 	/**
+	 * @param null $locale
 	 * @return Team
 	 */
-	public function getTeam()
+	public function getTeam($locale = null)
 	{
+		$this->setFaker($locale);
 		$team = new Team;
-		$team->name = $this->faker->city;
+		$team->name = $this->getTeamName();
+		$team->nationality = $this->nationalityFromLocale($this->locale);
 		$team->coach = $this->getCoach();
 		$players = [];
 		for ($i = 0; $i < 10; $i++) {
@@ -115,6 +132,37 @@ class RandomFiller
 		$team->roster = $players;
 
 		return $team;
+	}
+
+
+	/**
+	 * @return mixed
+	 */
+	public function getLocale()
+	{
+		$locales = (Config::get('generic.localesSmall', 'api/'));
+		shuffle($locales);
+		return $locales[0];
+	}
+
+	/**
+	 * @param $locale
+	 * @return mixed
+	 */
+	private function nationalityFromLocale($locale)
+	{
+		return preg_replace("/.._/", '', $locale);
+	}
+
+	/**
+	 * @param $locale
+	 */
+	private function setFaker($locale)
+	{
+		if ($locale !== null) {
+			$this->faker = \Faker\Factory::create($locale);
+			$this->locale = $locale;
+		}
 	}
 
 }

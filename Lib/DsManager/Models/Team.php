@@ -22,6 +22,11 @@ class Team
 	public $roster;
 
 	/**
+	 * @var
+	 */
+	public $nationality;
+
+	/**
 	 * @return array
 	 */
 	public function toArray()
@@ -106,6 +111,9 @@ class Team
 		return $players[$index];
 	}
 
+	/**
+	 * @return array
+	 */
 	public function playersPerRoleArray()
 	{
 		$result = [];
