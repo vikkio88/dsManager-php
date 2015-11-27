@@ -142,10 +142,7 @@ class Team extends DsManagerModel
 		foreach ($roster as $roasterP) {
 			$players[] = Player::fromArray($roasterP);
 		}
-
 		$team->roster = $players;
-
 		return $team;
-
 	}
 }

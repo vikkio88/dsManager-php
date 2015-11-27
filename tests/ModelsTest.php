@@ -80,6 +80,12 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 		echo "\ncoach:";
 		print_r($team->coach->toArray());
 
+		$teamArray = $team->toArray();
+		print_r($teamArray);
+
+		$newTeam = \App\Lib\DsManager\Models\Team::fromArray($teamArray);
+		print_r($newTeam->toArray());
+
 	}
 
 	/**
