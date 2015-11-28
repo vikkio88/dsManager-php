@@ -6,9 +6,21 @@ namespace App\Lib\DsManager\Models\Common;
 
 use App\Lib\DsManager\Models\Common\Interfaces\ActiveModel;
 
+/**
+ * Class DsManagerModel
+ * @package App\Lib\DsManager\Models\Common
+ */
 abstract class DsManagerModel implements ActiveModel
 {
-	abstract function toArray();
+    /**
+     * @var
+     */
+    public $id;
+
+    /**
+     * @return mixed
+     */
+    abstract function toArray();
 	/**
 	 * @param array $array
 	 * @return mixed
