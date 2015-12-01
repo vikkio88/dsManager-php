@@ -2,6 +2,7 @@
 namespace App\Lib\DsManager\Models\Orm;
 
 
+
 /**
  * Class Team
  * @package App\Lib\DsManager\Models\Orm
@@ -27,6 +28,14 @@ class Team extends DsManagerOrm
 	public function roster()
 	{
 		return $this->hasMany(Player::class);
+	}
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function coach()
+	{
+		return $this->hasOne(Coach::class);
 	}
 
 }

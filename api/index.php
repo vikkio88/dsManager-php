@@ -1,6 +1,8 @@
 <?php
 require_once("../vendor/autoload.php");
-
+use \App\Lib\DsManager\Models\Orm\Player;
+use \App\Lib\DsManager\Models\Orm\Team;
+use \App\Lib\DsManager\Models\Orm\Coach;
 
 $api = new \Slim\Slim();
 
@@ -17,17 +19,32 @@ $api->get('/ping', function () {
 });
 
 $api->get('/players', function () {
-	echo \App\Lib\DsManager\Models\Orm\Player::all()->toJson();
+	echo Player::all()->toJson();
 });
 
 $api->get('/coaches', function () {
-	echo \App\Lib\DsManager\Models\Orm\Coach::all()->toJson();
+	echo Coach::all()->toJson();
 });
 
 $api->get('/teams', function () {
-	echo \App\Lib\DsManager\Models\Orm\Team::all()->toJson();
+	echo Team::all()->toJson();
 });
 
+$api->get('/teams/:teamId', function ($teamId) {
+	echo Team::with(
+		[
+			'roster',
+			'coach'
+		])->where('id', '=', $teamId)->get()->toJson();
+});
+
+$api->get('/teams/:teamId/players', function ($teamId) {
+	echo Team::with('roster')->where('id', '=', $teamId)->get()->toJson();
+});
+
+$api->get('/teams/:teamId/coach', function ($teamId) {
+	echo Team::with('coach')->where('id', '=', $teamId)->get()->toJson();
+});
 
 
 $api->run();

@@ -63,7 +63,9 @@ class OrmModelsTest extends \PHPUnit_Framework_TestCase
 			$player['team_id'] = $teamO->id;
 			$playerO = \App\Lib\DsManager\Models\Orm\Player::create($player);
 		}
+		$teamArray['coach']['team_id'] = $teamO->id;
+		\App\Lib\DsManager\Models\Orm\Coach::create($teamArray['coach']);
 
-		print_r(\App\Lib\DsManager\Models\Orm\Team::with('roster')->where('id', '=', $teamO->id)->get());
+		print_r(\App\Lib\DsManager\Models\Orm\Team::with('roster')->with('coach')->where('id', '=', $teamO->id)->get());
 	}
 }
