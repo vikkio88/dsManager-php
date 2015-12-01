@@ -22,6 +22,7 @@ class CreatePlayersTable
             $table->float('wageReq');
             $table->float('val');
             $table->string('role',2);
+            $table->integer('team_id')->nullable();
             $table->timestamps();
         });
     }

@@ -9,17 +9,32 @@ namespace App\Lib\DsManager\Models\Orm;
 class Player extends DsManagerOrm
 {
 
-    protected $table = 'players';
+	/**
+	 * @var string
+	 */
+	protected $table = 'players';
 
-    protected $fillable =[
-        'name',
-        'surname',
-        'age',
-        'nationality',
-        'skillAvg',
-        'wageReq',
-        'val',
-        'role'
-    ];
+	/**
+	 * @var array
+	 */
+	protected $fillable = [
+		'name',
+		'surname',
+		'age',
+		'nationality',
+		'skillAvg',
+		'wageReq',
+		'val',
+		'role',
+		'team_id'
+	];
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function team()
+	{
+		return $this->belongsTo(Team::class);
+	}
 
 }

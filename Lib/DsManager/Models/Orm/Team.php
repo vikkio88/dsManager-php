@@ -1,17 +1,32 @@
 <?php
+namespace App\Lib\DsManager\Models\Orm;
 
-namespace App\Lib\DsManager\Models;
-
-use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Team
- * @package App\Lib\DsManager\Models
+ * @package App\Lib\DsManager\Models\Orm
  */
-class Team extends Eloquent
+class Team extends DsManagerOrm
 {
+	/**
+	 * @var string
+	 */
+	protected $table = 'teams';
 
-	protected $roster;
+	/**
+	 * @var array
+	 */
+	protected $fillable = [
+		'name',
+		'nationality'
+	];
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function roster()
+	{
+		return $this->hasMany(Player::class);
+	}
 
 }

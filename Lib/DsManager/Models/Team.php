@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Lib\DsManager\Models;
+
 use App\Lib\DsManager\Models\Common\DsManagerModel;
 
 /**
@@ -34,6 +35,7 @@ class Team extends DsManagerModel
 	{
 		$result = [];
 		$result['name'] = $this->name;
+		$result['nationality'] = $this->nationality;
 		$result['coach'] = $this->coach->toArray();
 		$roster = [];
 		foreach ($this->roster as $player) {
