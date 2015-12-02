@@ -30,10 +30,10 @@
                     //Hashbang
                     $locationProvider.hashPrefix("!");
 
-                    $urlRouterProvider.otherwise("/ping");
+                    $urlRouterProvider.otherwise("/teams");
 
                     $stateProvider
-                    //Sections
+                    //Ping
                         .state("ping",
                             {
                                 url:"/ping",
@@ -43,7 +43,32 @@
                                     label: 'Ping'
                                 }
                             }
-                        );
+                        )
+                        //Teams
+                        .state("teams",
+                            {
+                                url:"/teams",
+                                templateUrl: "app/views/teams/teamsListView.html",
+                                controller: "TeamsController as vm",
+                                ncyBreadcrumb: {
+                                    label: 'Teams'
+                                }
+                            }
+                        )
+                        .state("teamOne",
+                            {
+                                url:"/teams/:teamId",
+                                templateUrl: "app/views/teams/teamDetails.html",
+                                controller: "TeamDetailsController as vm",
+                                ncyBreadcrumb: {
+                                    parent: 'teams',
+                                    label: 'Team Details'
+                                }
+                            }
+                        )
+
+
+                    ;
                 }]
         );
 

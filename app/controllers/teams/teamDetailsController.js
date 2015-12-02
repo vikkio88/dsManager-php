@@ -4,30 +4,31 @@
 
         angular.module("DsManager")
             .controller(
-                "SampleController",
+                "TeamDetailsController",
                 [
                     "Common",
                     "$scope",
                     "$stateParams",
-                    SampleController
+                    TeamDetailsController
                 ]);
 
-        function SampleController(
+        function TeamDetailsController(
             Common,
             $scope,
             $stateParams
         )
         {
             var vm = this;
-            vm.stuff = null;
+            vm.team = {};
+            vm.team.roster = [];
 
             Common.Get
             (
-                "ping"
+                "teams/"+$stateParams.teamId
             ).then(
-               function(data){
+                function(data){
                     if(Common.isDebug()) console.log(data.data);
-                    vm.stuff = data.data;
+                    vm.team = data.data[0];
                 },
                 function(data){
                     console.log(data);

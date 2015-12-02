@@ -1,0 +1,54 @@
+<div data-cg-busy="Promessa">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>{{ vm.team.name | capitalize }}</h3>
+        </div>
+        <div class="panel-body">
+
+            <h3>Coach</h3>
+            <div class="form-group">
+                <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size: 20px"></span>
+            </div>
+            <div class="form-group">
+                <strong>{{ vm.team.coach.name|capitalize }} {{ vm.team.coach.surname|capitalize }}</strong> ({{ vm.team.coach.age}})
+            </div>
+            <div class="form-group">
+                <strong>nationality:</strong> {{vm.team.coach.nationality}}
+            </div>
+            <div class="form-group">
+                <strong>skill:</strong> {{vm.team.coach.skillAvg}}
+            </div>
+            <div class="form-group">
+                <strong>wage:</strong> {{vm.team.coach.wageReq}}
+            </div>
+            <div class="form-group">
+                <strong>skill:</strong> {{vm.team.coach.favouriteModule}}
+            </div>
+
+            <h3>Players Roster</h3>
+            <table class="table table-striped">
+                <thead>
+                <th>#</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Nationality</th>
+                <th>Role</th>
+                <th>Avg</th>
+                <th>Val</th>
+                <th>Wage</th>
+                </thead>
+                <tr class="clickable" data-ng-repeat="player in vm.team.roster | filter:searchText">
+                    <td><a data-ui-sref="teamOne({ teamId: player.id })">#</a></td>
+                    <td>{{ player.name| capitalize }} {{ player.surname| capitalize }}</td>
+                    <td>{{ player.age }}</td>
+                    <td>{{ player.nationality }}</td>
+                    <td>{{ player.role }}</td>
+                    <td>{{ player.skillAvg }}</td>
+                    <td>{{ player.val | currency:''}} m €</td>
+                    <td>{{ player.wageReq | currency:''}} m €</td>
+                </tr>
+            </table>
+        </div>
+        <div data-risultatisezione></div>
+    </div>
+</div>

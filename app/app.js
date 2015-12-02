@@ -1,7 +1,7 @@
 (
     function(){
       "use strict";
-        var app = angular.module("SampleApp",
+        var app = angular.module("DsManager",
             [
                 "app.constant",
                 "app.routes",
