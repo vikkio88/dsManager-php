@@ -15,7 +15,10 @@
                 vm.team.coach.age}})
             </div>
             <div class="form-group">
-                <strong>Nationality:</strong> {{vm.team.coach.nationality}}
+                <strong>Nationality:</strong>
+                <ul class="f32">
+                    <li title="{{vm.team.coach.nationality}}" class="flag {{vm.team.coach.nationality.toLowerCase()}}"></li>
+                </ul>
             </div>
             <div class="form-group">
                 <strong>Skill:</strong> {{vm.team.coach.skillAvg}}
@@ -43,7 +46,11 @@
                     <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.team.id, playerId: player.id })">#</a></td>
                     <td>{{ player.name| capitalize }} {{ player.surname| capitalize }}</td>
                     <td>{{ player.age }}</td>
-                    <td>{{ player.nationality }}</td>
+                    <td>
+                        <ul class="f32">
+                            <li title="{{player.nationality}}" class="flag {{player.nationality.toLowerCase()}}"></li>
+                        </ul>
+                    </td>
                     <td>{{ player.role }}</td>
                     <td>{{ player.skillAvg }}</td>
                     <td>{{ player.val | currency:''}} m €</td>

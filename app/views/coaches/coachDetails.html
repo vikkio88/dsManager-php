@@ -15,7 +15,10 @@
                 <strong>Age:</strong> {{ vm.coach.age }}
             </div>
             <div class="form-group">
-                <strong>Nationality:</strong> {{ vm.coach.nationality }}
+                <strong>Nationality:</strong>
+                <ul class="f32">
+                    <li title="{{vm.coach.nationality}}" class="flag {{vm.coach.nationality.toLowerCase()}}"></li>
+                </ul>
             </div>
             <div class="form-group">
                 <strong>Skill:</strong> {{vm.coach.skillAvg}}
