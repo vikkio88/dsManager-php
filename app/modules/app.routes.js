@@ -66,7 +66,28 @@
                                 }
                             }
                         )
-
+                        .state("playerOneFromTeam",
+                            {
+                                url:"/teams/:teamId/players/:playerId",
+                                templateUrl: "app/views/players/playerDetails.html",
+                                controller: "PlayerDetailsController as vm",
+                                ncyBreadcrumb: {
+                                    parent: 'teamOne',
+                                    label: 'Player Details'
+                                }
+                            }
+                        )
+                        .state("coachOneFromTeam",
+                            {
+                                url:"/teams/:teamId/coach/:coachId",
+                                templateUrl: "app/views/coaches/coachDetails.html",
+                                controller: "CoachDetailsController as vm",
+                                ncyBreadcrumb: {
+                                    parent: 'teamOne',
+                                    label: 'Coach Details'
+                                }
+                            }
+                        )
 
                     ;
                 }]

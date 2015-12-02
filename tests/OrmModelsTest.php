@@ -53,7 +53,7 @@ class OrmModelsTest extends \PHPUnit_Framework_TestCase
 	public function testTeamOrm()
 	{
 		$rndFiller = new \App\Lib\DsManager\Helpers\RandomFiller();
-		$team = $rndFiller->getTeam();
+		$team = $rndFiller->getTeam($rndFiller->getLocale());
 		$teamArray = $team->toArray();
 		echo "\n";
 		print_r($teamArray);
@@ -66,6 +66,6 @@ class OrmModelsTest extends \PHPUnit_Framework_TestCase
 		$teamArray['coach']['team_id'] = $teamO->id;
 		\App\Lib\DsManager\Models\Orm\Coach::create($teamArray['coach']);
 
-		print_r(\App\Lib\DsManager\Models\Orm\Team::with('roster')->with('coach')->where('id', '=', $teamO->id)->get());
+		print_r(\App\Lib\DsManager\Models\Orm\Team::with('roster')->with('coach')->where('id', '=', $teamO->id)->get()->toArray());
 	}
 }

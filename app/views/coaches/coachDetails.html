@@ -1,0 +1,29 @@
+<div data-cg-busy="Promessa">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>{{ vm.coach.name | capitalize }} {{ vm.coach.surname | capitalize }}</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size: 50px"></span>
+            </div>
+            <div class="form-group">
+                <strong>Module:</strong> {{vm.coach.favouriteModule}}
+            </div>
+            <div class="form-group">
+                <strong>Age:</strong> {{ vm.coach.age }}
+            </div>
+            <div class="form-group">
+                <strong>Nationality:</strong> {{ vm.coach.nationality }}
+            </div>
+            <div class="form-group">
+                <strong>Skill:</strong> {{vm.coach.skillAvg}}
+            </div>
+            <div class="form-group">
+                <strong>Wage:</strong> {{vm.coach.wageReq | currency: ''}} €
+            </div>
+
+        </div>
+    </div>
+</div>

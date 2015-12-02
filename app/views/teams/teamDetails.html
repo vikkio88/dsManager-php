@@ -10,19 +10,21 @@
                 <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size: 20px"></span>
             </div>
             <div class="form-group">
-                <strong>{{ vm.team.coach.name|capitalize }} {{ vm.team.coach.surname|capitalize }}</strong> ({{ vm.team.coach.age}})
+                <strong><a data-ui-sref="coachOneFromTeam({ teamId: vm.team.id, coachId: vm.team.coach.id })">
+                    {{vm.team.coach.name|capitalize }} {{ vm.team.coach.surname|capitalize }}</a></strong> ({{
+                vm.team.coach.age}})
             </div>
             <div class="form-group">
-                <strong>nationality:</strong> {{vm.team.coach.nationality}}
+                <strong>Nationality:</strong> {{vm.team.coach.nationality}}
             </div>
             <div class="form-group">
-                <strong>skill:</strong> {{vm.team.coach.skillAvg}}
+                <strong>Skill:</strong> {{vm.team.coach.skillAvg}}
             </div>
             <div class="form-group">
-                <strong>wage:</strong> {{vm.team.coach.wageReq}}
+                <strong>Wage:</strong> {{vm.team.coach.wageReq}}
             </div>
             <div class="form-group">
-                <strong>skill:</strong> {{vm.team.coach.favouriteModule}}
+                <strong>Module:</strong> {{vm.team.coach.favouriteModule}}
             </div>
 
             <h3>Players Roster</h3>
@@ -38,7 +40,7 @@
                 <th>Wage</th>
                 </thead>
                 <tr class="clickable" data-ng-repeat="player in vm.team.roster | filter:searchText">
-                    <td><a data-ui-sref="teamOne({ teamId: player.id })">#</a></td>
+                    <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.team.id, playerId: player.id })">#</a></td>
                     <td>{{ player.name| capitalize }} {{ player.surname| capitalize }}</td>
                     <td>{{ player.age }}</td>
                     <td>{{ player.nationality }}</td>

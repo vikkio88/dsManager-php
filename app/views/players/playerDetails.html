@@ -1,0 +1,33 @@
+<div data-cg-busy="Promessa">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>{{ vm.player.name | capitalize }} {{ vm.player.surname | capitalize }}</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size: 50px"></span>
+            </div>
+            <div class="form-group">
+                <strong>Role:</strong> {{vm.player.role}}
+            </div>
+            <div class="form-group">
+                <strong>Age:</strong> {{ vm.player.age }}
+            </div>
+            <div class="form-group">
+                <strong>Nationality:</strong> {{ vm.player.nationality }}
+            </div>
+            <div class="form-group">
+                <strong>Skill:</strong> {{vm.player.skillAvg}}
+            </div>
+            <div class="form-group">
+                <strong>Wage:</strong> {{vm.player.wageReq | currency: ''}} €
+            </div>
+            <div class="form-group">
+                <strong>Value:</strong> {{vm.player.val | currency: ''}} €
+            </div>
+
+
+        </div>
+    </div>
+</div>

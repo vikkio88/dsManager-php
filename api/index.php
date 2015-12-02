@@ -22,8 +22,16 @@ $api->get('/players', function () {
 	echo Player::all()->toJson();
 });
 
+$api->get('/players/:id', function ($id) {
+	echo Player::findOrFail($id)->toJson();
+});
+
 $api->get('/coaches', function () {
 	echo Coach::all()->toJson();
+});
+
+$api->get('/coaches/:id', function ($id) {
+	echo Coach::findOrFail($id)->toJson();
 });
 
 $api->get('/teams', function () {
