@@ -18,7 +18,7 @@ class CreateCoachesTable
             $table->string('surname');
             $table->tinyInteger('age');
             $table->string('nationality',2);
-            $table->string('skillAvg');
+            $table->float('skillAvg');
             $table->float('wageReq');
             $table->string('favouriteModule',10);
             $table->integer('team_id')->nullable();

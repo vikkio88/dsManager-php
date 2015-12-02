@@ -18,7 +18,7 @@ class CreatePlayersTable
             $table->string('surname');
             $table->tinyInteger('age');
             $table->string('nationality',2);
-            $table->string('skillAvg');
+            $table->float('skillAvg');
             $table->float('wageReq');
             $table->float('val');
             $table->string('role',2);
