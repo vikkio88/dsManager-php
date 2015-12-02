@@ -19,48 +19,52 @@ $api->get('/ping', function () {
 });
 
 $api->get('/players', function () {
-    echo Player::all()->toJson();
+    echo json_encode(Player::all()->toArray());
 });
 
 $api->get('/players/:id', function ($id) {
-    echo Player::findOrFail($id)->toJson();
+    echo json_encode(Player::findOrFail($id)->toArray());
 });
 
 $api->get('/coaches', function () {
-    echo Coach::all()->toJson();
+    echo json_encode(Coach::all()->toArray());
 });
 
 $api->get('/coaches/:id', function ($id) {
-    echo Coach::findOrFail($id)->toJson();
+    echo json_encode((Coach::findOrFail($id)->toArray()));
 });
 
 $api->get('/teams', function () {
-    echo Team::all()->toJson();
+    echo json_encode(Team::all()->toArray());
 });
 
 $api->get('/teams/:teamId', function ($teamId) {
-    echo Team::with(
-        [
-            'roster',
-            'coach'
-        ])->where('id', '=', $teamId)->get()->toJson();
+    echo json_encode(
+        Team::with(
+            [
+                'roster',
+                'coach'
+            ])->where('id', '=', $teamId)->get()->toArray()
+    );
 });
 
 $api->get('/teams/:teamId/players', function ($teamId) {
-    echo Team::with('roster')->where('id', '=', $teamId)->get()->toJson();
+    echo json_encode(Team::with('roster')->where('id', '=', $teamId)->get()->toArray());
 });
 
 $api->get('/teams/:teamId/players/:playerId', function ($teamId, $playerId) {
-    echo Player::where(
-        [
-            'id' => $playerId,
-            'team_id' => $teamId
-        ]
-    )->get()->toJson();
+    echo json_encode(
+        Player::where(
+            [
+                'id' => $playerId,
+                'team_id' => $teamId
+            ]
+        )->get()->toArray()
+    );
 });
 
 $api->get('/teams/:teamId/coach', function ($teamId) {
-    echo Team::with('coach')->where('id', '=', $teamId)->get()->toJson();
+    echo json_encode(Team::with('coach')->where('id', '=', $teamId)->get()->toArray());
 });
 
 

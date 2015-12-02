@@ -18,6 +18,9 @@
             $stateParams
         )
         {
+            $scope.orderByField = 'id';
+            $scope.reverseSort = false;
+
             var vm = this;
             vm.team = {};
             vm.team.roster = [];

@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Teams</div>
         <div class="panel-body">
-            <div data-filtrofull></div>
+            <div data-textfilterfull></div>
         </div>
         <table class="table table-striped">
             <thead>
@@ -10,10 +10,9 @@
             <th>Team</th>
             <th>Nationality</th>
             </thead>
-            <tr class="clickable" data-ng-repeat="team in vm.teams | filter:searchText"
-                data-ui-sref="teamOne({ teamId: team.id })">
+            <tr data-ng-repeat="team in vm.teams | filter:searchText">
                 <td><a data-ui-sref="teamOne({ teamId: team.id })">#</a></td>
-                <td>{{ team.name| capitalize }}</td>
+                <td><a data-ui-sref="teamOne({ teamId: team.id })">{{ team.name| capitalize }}</a></td>
                 <td>
                     <ul class="f32">
                         <li title="{{team.nationality}}" class="flag {{team.nationality.toLowerCase()}}"></li>

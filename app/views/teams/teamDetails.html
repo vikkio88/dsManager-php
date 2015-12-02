@@ -31,20 +31,21 @@
             </div>
 
             <h3>Players Roster</h3>
+            <div data-textfilterfull></div>
             <table class="table table-striped">
                 <thead>
                 <th>#</th>
-                <th>Name</th>
-                <th>Age</th>
+                <th><a data-ng-click="orderByField='name'; reverseSort = !reverseSort">Name</a></th>
+                <th><a data-ng-click="orderByField='age'; reverseSort = !reverseSort">Age</a></th>
                 <th>Nationality</th>
-                <th>Role</th>
-                <th>Avg</th>
-                <th>Val</th>
-                <th>Wage</th>
+                <th><a data-ng-click="orderByField='role'; reverseSort = !reverseSort">Role</a></th>
+                <th><a data-ng-click="orderByField='skillAvg'; reverseSort = !reverseSort">Avg</a></th>
+                <th><a data-ng-click="orderByField='val'; reverseSort = !reverseSort">Val</a></th>
+                <th><a data-ng-click="orderByField='wageReq'; reverseSort = !reverseSort">Wage</a></th>
                 </thead>
-                <tr class="clickable" data-ng-repeat="player in vm.team.roster | filter:searchText">
+                <tr data-ng-repeat="player in vm.team.roster | filter:searchText |orderBy:orderByField:reverseSort">
                     <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.team.id, playerId: player.id })">#</a></td>
-                    <td>{{ player.name| capitalize }} {{ player.surname| capitalize }}</td>
+                    <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.team.id, playerId: player.id })">{{ player.name| capitalize }} {{ player.surname| capitalize }}</a></td>
                     <td>{{ player.age }}</td>
                     <td>
                         <ul class="f32">
