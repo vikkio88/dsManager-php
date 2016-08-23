@@ -1,5 +1,8 @@
+before_script:
+  - npm install -g bower
+  
 install:
   - composer install --prefer-dist --no-interaction
-  - npm install
+  - bower install
 
 language: php
