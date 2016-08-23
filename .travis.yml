@@ -1,6 +1,6 @@
 before_script:
   - npm install -g bower
-  - bower install
+  - bower install --no-interactive
 
 install:
   - composer install --prefer-dist --no-interaction
