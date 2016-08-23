@@ -5,7 +5,7 @@ use \App\Lib\DsManager\Models\Orm\Player;
 use \App\Lib\DsManager\Models\Orm\Team;
 use \App\Lib\DsManager\Models\Orm\Coach;
 
-$api = new \Slim\Slim();
+$api = new Slim\App();
 
 $api->response->headers->set('Content-Type', 'application/json');
 

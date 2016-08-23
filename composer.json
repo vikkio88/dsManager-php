@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "slim/slim": "^2.6",
+        "slim/slim": "^3.0",
         "illuminate/database": "*",
         "fzaninotto/faker": "~1.4"
     },
