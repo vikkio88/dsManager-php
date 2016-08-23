@@ -1,0 +1,5 @@
+install:
+  - composer install --prefer-dist --no-interaction
+  - npm install
+
+language: php
