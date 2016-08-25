@@ -4,7 +4,8 @@ before_script:
   - mysql -e 'create database dsmanager;'
 install:
   - cd api/ && composer install --prefer-dist --no-interaction
-  - cd api/ && php novice migrate
+  - php novice migrate
+  - vendor/bin/phpunit tests/
 
 language: php
 
