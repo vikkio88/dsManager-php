@@ -1,4 +1,4 @@
 .idea/
-vendor/
+api/vendor/
 bower_components/
-composer.lock
+api/composer.lock

@@ -1,6 +1,6 @@
 <?php
 
 return [
-	//Stuff
-	'stuff' => 1,
+    //Stuff
+    'stuff' => 1,
 ];

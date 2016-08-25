@@ -1,90 +1,110 @@
 <?php
-require_once("../vendor/autoload.php");
-use \App\Lib\Helpers\JsonResponse;
+
+
+require_once("vendor/autoload.php");
+
+
+use \App\Lib\Helpers\Responder;
 use \App\Lib\DsManager\Models\Orm\Player;
 use \App\Lib\DsManager\Models\Orm\Team;
 use \App\Lib\DsManager\Models\Orm\Coach;
 
-$api = new Slim\App();
+$configuration = [
+    'settings' => [
+        'displayErrorDetails' => true,
+    ],
+];
+$c = new \Slim\Container($configuration);
+$api = new \Slim\App($c);
 
-$api->response->headers->set('Content-Type', 'application/json');
-
-$api->get('/ping', function () {
-	echo JsonResponse::fromArray(
-		[
-			"status" => "service up",
-			"message" => "in a bottle",
-			"config" => \App\Lib\Helpers\Config::get("config1.stuff")
-		]
-	);
+$api->get('/ping', function ($request, $response, $args) {
+    $jsonResp = json_encode(
+        [
+            "status" => "service up",
+            "message" => "in a bottle",
+            "config" => \App\Lib\Helpers\Config::get("config1.stuff")
+        ]
+    );
+    return \App\Lib\Helpers\Responder::getJsonResponse($jsonResp, $response);
 });
 
-$api->get('/players', function () {
-	echo JsonResponse::fromArray(
-		Player::all()->toArray()
-	);
+$api->get('/players', function ($request, $response, $args) {
+    $json = json_encode(Player::all());
+    return \App\Lib\Helpers\Responder::getJsonResponse($json, $response);
 });
 
-$api->get('/players/:id', function ($id) {
-	echo JsonResponse::fromArray(
-		Player::findOrFail($id)->toArray()
-	);
+
+$api->get('/players/{id}', function ($request, $response, $args) {
+    return \App\Lib\Helpers\Responder::getJsonResponse(
+        Player::findOrFail($args['id']),
+        $response
+    );
 });
 
-$api->get('/coaches', function () {
-	echo JsonResponse::fromArray(
-		Coach::all()->toArray()
-	);
+$api->get('/coaches', function ($request, $response, $args) {
+    return \App\Lib\Helpers\Responder::getJsonResponse(
+        Coach::all(),
+        $response
+    );
 });
 
-$api->get('/coaches/:id', function ($id) {
-	echo JsonResponse::fromArray(
-		Coach::findOrFail($id)->toArray()
-	);
+$api->get('/teams', function ($request, $response, $args) {
+    return \App\Lib\Helpers\Responder::getJsonResponse(
+        Team::all(),
+        $response
+    );
 });
 
-$api->get('/teams', function () {
-	echo JsonResponse::fromArray(
-		Team::all()->toArray()
-	);
+$api->get('/teams/{id}', function ($request, $response, $args) {
+    return \App\Lib\Helpers\Responder::getJsonResponse(
+        Team::with(
+            'roster',
+            'coach'
+        )->where(
+            [
+                'id' => $args['id']
+            ]
+        )->get(),
+        $response
+    );
 });
 
-$api->get('/teams/:teamId', function ($teamId) {
-	echo JsonResponse::fromArray(
-		Team::with(
-			[
-				'roster',
-				'coach'
-			])->where('id', '=', $teamId)->get()->toArray()
-	);
+$api->get('/teams/{id}/players', function ($request, $response, $args) {
+    return \App\Lib\Helpers\Responder::getJsonResponse(
+        Team::with(
+            'roster'
+        )->where(
+            [
+                'id' => $args['id']
+            ]
+        )->get(),
+        $response
+    );
 });
 
-$api->get('/teams/:teamId/players', function ($teamId) {
-	echo JsonResponse::fromArray(
-		Team::with(
-			'roster'
-		)->where('id', '=', $teamId)->get()->toArray()
-	);
+$api->get('/teams/{id}/players/{playerId}', function ($request, $response, $args) {
+    return \App\Lib\Helpers\Responder::getJsonResponse(
+        Player::where(
+            [
+                'id' => $args['playerId'],
+                'team_id' => $args['id']
+            ]
+        )->get(),
+        $response
+    );
 });
 
-$api->get('/teams/:teamId/players/:playerId', function ($teamId, $playerId) {
-	echo JsonResponse::fromArray(
-		Player::where(
-			[
-				'id' => $playerId,
-				'team_id' => $teamId
-			]
-		)->get()->toArray()
-	);
+$api->get('/teams/{id}/coach', function ($request, $response, $args) {
+    return \App\Lib\Helpers\Responder::getJsonResponse(
+        Team::with(
+            'coach'
+        )->where(
+            [
+                'id' => $args['id']
+            ]
+        )->get(),
+        $response
+    );
 });
-
-$api->get('/teams/:teamId/coach', function ($teamId) {
-	echo JsonResponse::fromArray(
-		Team::with(
-			'coach'
-		)->where('id', '=', $teamId)->get()->toArray()
-	);
-});
-
 
 $api->run();

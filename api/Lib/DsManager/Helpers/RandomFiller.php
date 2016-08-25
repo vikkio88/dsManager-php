@@ -88,7 +88,7 @@ class RandomFiller
 	 */
 	public function getRole()
 	{
-		$roles = array_keys(Config::get('modules.roles', 'api/'));
+		$roles = array_keys(Config::get('modules.roles'));
 		shuffle($roles);
 		return $roles[0];
 	}
@@ -98,7 +98,7 @@ class RandomFiller
 	 */
 	public function getModule()
 	{
-		$modules = array_keys(Config::get('modules.modules', 'api/'));
+		$modules = array_keys(Config::get('modules.modules'));
 		shuffle($modules);
 		return $modules[0];
 	}
@@ -142,7 +142,7 @@ class RandomFiller
 	 */
 	public function getLocale()
 	{
-		$locales = (Config::get('generic.localesSmall', 'api/'));
+		$locales = (Config::get('generic.localesSmall'));
 		shuffle($locales);
 		return $locales[0];
 	}
