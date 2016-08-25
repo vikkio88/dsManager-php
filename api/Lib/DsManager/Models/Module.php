@@ -30,7 +30,7 @@ class Module
 	public function __construct($module)
 	{
 		$this->moduleCode = $module;
-		$this->configuration = Config::get("modules.modules", "api/")[$module];
+		$this->configuration = Config::get("modules.modules")[$module];
 		if ($this->configuration == null) throw new \InvalidArgumentException("Not a valid Module supplied");
 	}
 
@@ -95,7 +95,7 @@ class Module
 	public function getRoleNeeded($complete = false)
 	{
 		$rolesNeeded = [];
-		$roles = \App\Lib\Helpers\Config::get('modules.roles', "api/");
+		$roles = \App\Lib\Helpers\Config::get('modules.roles');
 		$rolesKeys = array_keys($roles);
 		foreach ($this->configuration["roles"] as $index => $playNum) {
 			if ($playNum != 0 || $complete)

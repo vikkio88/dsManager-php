@@ -14,7 +14,7 @@ class ModuleConfigurationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testAllTheModulesGot11Players()
 	{
-		$modules = \App\Lib\Helpers\Config::get('modules.modules', "api/");
+		$modules = \App\Lib\Helpers\Config::get('modules.modules');
 		$this->assertNotEmpty($modules);
 		foreach ($modules as $key => $module) {
 			$this->assertNotEmpty($module["roles"]);
@@ -32,9 +32,9 @@ class ModuleConfigurationTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testCorrectDisplayModuleDescriptionRole()
 	{
-		$modules = \App\Lib\Helpers\Config::get('modules.modules', "api/");
+		$modules = \App\Lib\Helpers\Config::get('modules.modules');
 		$this->assertNotEmpty($modules);
-		$roles = \App\Lib\Helpers\Config::get('modules.roles', "api/");
+		$roles = \App\Lib\Helpers\Config::get('modules.roles');
 		$rolesKeys = array_keys($roles);
 
 		foreach ($modules as $key => $module) {

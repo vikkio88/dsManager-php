@@ -37,7 +37,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetRandomCoaches()
 	{
-		foreach (\App\Lib\Helpers\Config::get('generic.localesSmall', 'api/') as $nat) {
+		foreach (\App\Lib\Helpers\Config::get('generic.localesSmall') as $nat) {
 			$rndF = new \App\Lib\DsManager\Helpers\RandomFiller($nat);
 			$coach = $rndF->getCoach();
 			print_r($coach->toArray());
@@ -49,7 +49,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetRandomPlayers()
 	{
-		foreach (\App\Lib\Helpers\Config::get('generic.localesSmall', 'api/') as $nat) {
+		foreach (\App\Lib\Helpers\Config::get('generic.localesSmall') as $nat) {
 			$rndF = new \App\Lib\DsManager\Helpers\RandomFiller($nat);
 			$player = $rndF->getPlayer();
 			print_r($player->toArray());
@@ -139,7 +139,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 
 		for ($i = 1; $i <= 30; $i++) {
 
-			$randomLocale = \App\Lib\Helpers\Config::get('generic.localesSmall', 'api/');
+			$randomLocale = \App\Lib\Helpers\Config::get('generic.localesSmall');
 			shuffle($randomLocale);
 			$randomLocale = $randomLocale[0];
 
@@ -174,7 +174,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 		$rndF = new \App\Lib\DsManager\Helpers\RandomFiller("it_IT");
 		$team = $rndF->getTeam();
 
-		$modules = \App\Lib\Helpers\Config::get("modules.modules", "api/");
+		$modules = \App\Lib\Helpers\Config::get("modules.modules");
 		$modules = array_keys($modules);
 		foreach ($modules as $mod) {
 			$module = new \App\Lib\DsManager\Models\Module($mod);
