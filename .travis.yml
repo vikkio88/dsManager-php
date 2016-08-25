@@ -1,4 +1,12 @@
+services:
+  - mysql
+before_script:
+  - mysql -e 'create database dsmanager;'
 install:
   - cd api/ && composer install --prefer-dist --no-interaction
+  - cd api/ && php novice migrate
 
 language: php
+
+notifications:
+  email: false
