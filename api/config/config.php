@@ -11,7 +11,7 @@ $capsule->addConnection(array(
     'host' => 'localhost',
     'database' => 'dsmanager',
     'username' => 'root',
-    'password' => 'suca',
+    'password' => '',
     'charset' => 'utf8',
     'collation' => 'utf8_general_ci',
     'prefix' => ''
