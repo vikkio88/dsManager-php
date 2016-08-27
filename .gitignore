@@ -2,3 +2,4 @@
 api/vendor/
 bower_components/
 api/composer.lock
+api/.env

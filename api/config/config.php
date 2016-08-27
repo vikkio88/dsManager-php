@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
+$dotenv = new Dotenv\Dotenv(__DIR__ . "/../");
+$dotenv->load();
+
 /**
  * Configure the database and boot Eloquent
  */
@@ -10,8 +13,8 @@ $capsule->addConnection(array(
     'driver' => 'mysql',
     'host' => 'localhost',
     'database' => 'dsmanager',
-    'username' => 'root',
-    'password' => '',
+    'username' => empty(getenv('USERNAME')) ? 'root' : getenv('USERNAME'),
+    'password' => empty(getenv('PASSWORD')) ? '' : getenv('PASSWORD'),
     'charset' => 'utf8',
     'collation' => 'utf8_general_ci',
     'prefix' => ''

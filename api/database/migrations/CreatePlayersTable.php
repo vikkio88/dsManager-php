@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use \Illuminate\Database\Schema\Blueprint as Blueprint;
 
 class CreatePlayersTable
 {
@@ -12,7 +13,7 @@ class CreatePlayersTable
     public function run()
     {
         Capsule::schema()->dropIfExists('players');
-        Capsule::schema()->create('players', function ($table) {
+        Capsule::schema()->create('players', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('surname');

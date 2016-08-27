@@ -25,38 +25,38 @@ $api->get('/ping', function ($request, $response, $args) {
             "config" => \App\Lib\Helpers\Config::get("config1.stuff")
         ]
     );
-    return \App\Lib\Helpers\Responder::getJsonResponse($jsonResp, $response);
+    return Responder::getJsonResponse($jsonResp, $response);
 });
 
 $api->get('/players', function ($request, $response, $args) {
     $json = json_encode(Player::all());
-    return \App\Lib\Helpers\Responder::getJsonResponse($json, $response);
+    return Responder::getJsonResponse($json, $response);
 });
 
 
 $api->get('/players/{id}', function ($request, $response, $args) {
-    return \App\Lib\Helpers\Responder::getJsonResponse(
+    return Responder::getJsonResponse(
         Player::findOrFail($args['id']),
         $response
     );
 });
 
 $api->get('/coaches', function ($request, $response, $args) {
-    return \App\Lib\Helpers\Responder::getJsonResponse(
+    return Responder::getJsonResponse(
         Coach::all(),
         $response
     );
 });
 
 $api->get('/teams', function ($request, $response, $args) {
-    return \App\Lib\Helpers\Responder::getJsonResponse(
+    return Responder::getJsonResponse(
         Team::all(),
         $response
     );
 });
 
 $api->get('/teams/{id}', function ($request, $response, $args) {
-    return \App\Lib\Helpers\Responder::getJsonResponse(
+    return Responder::getJsonResponse(
         Team::with(
             'roster',
             'coach'
@@ -70,7 +70,7 @@ $api->get('/teams/{id}', function ($request, $response, $args) {
 });
 
 $api->get('/teams/{id}/players', function ($request, $response, $args) {
-    return \App\Lib\Helpers\Responder::getJsonResponse(
+    return Responder::getJsonResponse(
         Team::with(
             'roster'
         )->where(
@@ -83,7 +83,7 @@ $api->get('/teams/{id}/players', function ($request, $response, $args) {
 });
 
 $api->get('/teams/{id}/players/{playerId}', function ($request, $response, $args) {
-    return \App\Lib\Helpers\Responder::getJsonResponse(
+    return Responder::getJsonResponse(
         Player::where(
             [
                 'id' => $args['playerId'],
@@ -95,7 +95,7 @@ $api->get('/teams/{id}/players/{playerId}', function ($request, $response, $args
 });
 
 $api->get('/teams/{id}/coach', function ($request, $response, $args) {
-    return \App\Lib\Helpers\Responder::getJsonResponse(
+    return Responder::getJsonResponse(
         Team::with(
             'coach'
         )->where(
