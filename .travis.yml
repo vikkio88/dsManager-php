@@ -6,6 +6,7 @@ before_install:
 install:
   - cd api/ && composer install --prefer-dist --no-interaction
   - php novice migrate
+  - php novice seed
 
 language: php
 

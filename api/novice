@@ -52,7 +52,6 @@ class Novice {
     function runSeed()
     {
         $files = glob(SEEDS_PATH.'/*.php');
-
         $this->run($files);
     }
 
