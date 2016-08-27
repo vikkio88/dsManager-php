@@ -21,10 +21,5 @@
     },
     "autoload-dev": {
         "psr-4": { "": "tests/" }
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "php -r \"copy('.env.example', '.env');\""
-        ]
     }
 }
