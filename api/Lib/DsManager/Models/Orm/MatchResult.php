@@ -6,13 +6,8 @@ namespace App\Lib\DsManager\Models\Orm;
  * Class MatchResult
  * @package App\Lib\DsManager\Models\Orm
  */
-class MatchResult extends DsManagerOrm
+class MatchResult extends Match
 {
-    /**
-     * @var string
-     */
-    protected $table = 'matches';
-
     /**
      * @var array
      */
@@ -37,20 +32,4 @@ class MatchResult extends DsManagerOrm
         'info' => 'json',
         'simulated' => 'boolean'
     ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function homeTeam()
-    {
-        return $this->belongsTo(Team::class, 'home_team_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function awayTeam()
-    {
-        return $this->belongsTo(Team::class, 'away_team_id');
-    }
 }

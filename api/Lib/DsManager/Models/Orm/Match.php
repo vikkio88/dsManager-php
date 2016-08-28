@@ -56,4 +56,15 @@ class Match extends DsManagerOrm
         return $this->belongsTo(Team::class, 'away_team_id');
     }
 
+    public function scopeComplete($query){
+        return $query->with(
+            'homeTeam',
+            'homeTeam.roster',
+            'homeTeam.coach',
+            'awayTeam',
+            'awayTeam.roster',
+            'awayTeam.coach'
+        );
+    }
+
 }
