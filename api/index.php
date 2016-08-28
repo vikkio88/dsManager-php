@@ -173,7 +173,7 @@ $api->put('/matches/{id}/simulate', function ($request, $response, $args) {
                 'id' => $args['id']
             ]
         )->update(
-            $matchResult
+            \App\Lib\DsManager\Models\Orm\MatchResult::castAttributes($matchResult)
         );
         if ($result === 1) {
             $result = \App\Lib\DsManager\Models\Orm\MatchResult::complete()

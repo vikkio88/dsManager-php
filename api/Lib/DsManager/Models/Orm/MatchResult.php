@@ -32,4 +32,12 @@ class MatchResult extends Match
         'info' => 'json',
         'simulated' => 'boolean'
     ];
+
+    public static function castAttributes($attributes = [])
+    {
+        if (array_key_exists('info', $attributes)) {
+            $attributes['info'] = json_encode($attributes['info']);
+        }
+        return $attributes;
+    }
 }

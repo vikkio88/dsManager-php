@@ -120,8 +120,8 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
             $this->assertNotEmpty($spanish->getAvgSkill());
             $result = (new \App\Lib\DsManager\Models\Match($italian, $spanish))->simulate()->toArray();
             $this->assertNotEmpty($result);
-            $this->assertGreaterThanOrEqual(0, $result['goalHome']);
-            $this->assertGreaterThanOrEqual(0, $result['goalAway']);
+            $this->assertGreaterThanOrEqual(0, $result['goal_home']);
+            $this->assertGreaterThanOrEqual(0, $result['goal_away']);
 
         }
     }
@@ -143,9 +143,9 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
         $match = new \App\Lib\DsManager\Models\Match($home, $away);
         $result = $match->simulate()->toArray();
         $this->assertNotEmpty($result);
-        $this->assertGreaterThanOrEqual(0, $result['goalAway']);
-        $this->assertGreaterThanOrEqual(0, $result['goalHome']);
-        if ($result['goalHome'] > 0) {
+        $this->assertGreaterThanOrEqual(0, $result['goal_away']);
+        $this->assertGreaterThanOrEqual(0, $result['goal_home']);
+        if ($result['goal_home'] > 0) {
             $this->assertNotEmpty($result['info']['scorers']['home']);
             foreach ($result['info']['scorers']['home'] as $scorerHome) {
                 $this->assertEquals($scorerHome->team_id, $teamHome);
@@ -153,7 +153,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
         } else {
             $this->assertEmpty($result['info']['scorers']['home']);
         }
-        if ($result['goalAway'] > 0) {
+        if ($result['goal_away'] > 0) {
             $this->assertNotEmpty($result['info']['scorers']['away']);
             foreach ($result['info']['scorers']['away'] as $scorerAway) {
                 $this->assertEquals($scorerAway->team_id, $teamAway);
@@ -161,10 +161,10 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
         } else {
             $this->assertEmpty($result['info']['scorers']['away']);
         }
-        if ($result['goalHome'] == $result['goalAway']) {
-            $this->assertTrue($result['info']['isDraw']);
+        if ($result['goal_home'] == $result['goal_away']) {
+            $this->assertTrue($result['info']['is_draw']);
         } else {
-            $this->assertFalse($result['info']['isDraw']);
+            $this->assertFalse($result['info']['is_draw']);
         }
     }
 
@@ -190,7 +190,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
             $result = (new \App\Lib\DsManager\Models\Match($opponent, $myTeam))->simulate()->toArray();
             $this->assertNotEmpty($result);
             $result = $result['info'];
-            if (!$result['isDraw']) {
+            if (!$result['is_draw']) {
                 if ($result['winner']['name'] == $myTeam->name) {
                     $win++;
                 } else {

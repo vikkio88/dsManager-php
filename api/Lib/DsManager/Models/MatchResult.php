@@ -66,7 +66,7 @@ class MatchResult extends DsManagerModel
         }
 
         return [
-            'isDraw' => $isDraw,
+            'is_draw' => $isDraw,
             'winner' => $this->cleanTeam($winner->toArray()),
             'loser' => $this->cleanTeam($loser->toArray())
         ];
@@ -82,7 +82,6 @@ class MatchResult extends DsManagerModel
         $result["goal_away"] = $this->goalAway;
         $result['info'] = $this->getWinnerLoser();
         $result['info']['scorers'] = $this->getScorers();
-        $result['info'] = json_encode($result['info']);
         $result['simulated'] = true;
         return $result;
     }
