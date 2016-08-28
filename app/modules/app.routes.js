@@ -88,6 +88,18 @@
                                 }
                             }
                         )
+                        .state("matches",
+                            {
+                                url:"/matches",
+                                templateUrl: "app/views/matches/matchesListView.html",
+                                controller: "MatchesController as vm",
+                                ncyBreadcrumb: {
+                                    parent: '',
+                                    label: 'Matches'
+                                }
+                            }
+                        )
+
 
                     ;
                 }]

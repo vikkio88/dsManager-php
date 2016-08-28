@@ -1,0 +1,64 @@
+<div data-cg-busy="Promessa">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>{{ vm.team.name | capitalize }}</h3>
+        </div>
+        <div class="panel-body">
+
+            <h3>Coach</h3>
+            <div class="form-group">
+                <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size: 20px"></span>
+            </div>
+            <div class="form-group">
+                <strong><a data-ui-sref="coachOneFromTeam({ teamId: vm.team.id, coachId: vm.team.coach.id })">
+                    {{vm.team.coach.name|capitalize }} {{ vm.team.coach.surname|capitalize }}</a></strong> ({{
+                vm.team.coach.age}})
+            </div>
+            <div class="form-group">
+                <strong>Nationality:</strong>
+                <ul class="f32">
+                    <li title="{{vm.team.coach.nationality}}" class="flag {{vm.team.coach.nationality.toLowerCase()}}"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <strong>Skill:</strong> {{vm.team.coach.skillAvg}}
+            </div>
+            <div class="form-group">
+                <strong>Wage:</strong> {{vm.team.coach.wageReq}}
+            </div>
+            <div class="form-group">
+                <strong>Module:</strong> {{vm.team.coach.favouriteModule}}
+            </div>
+
+            <h3>Players Roster</h3>
+            <div data-textfilterfull></div>
+            <table class="table table-striped">
+                <thead>
+                <th>#</th>
+                <th><a data-ng-click="orderByField='name'; reverseSort = !reverseSort">Name</a></th>
+                <th><a data-ng-click="orderByField='age'; reverseSort = !reverseSort">Age</a></th>
+                <th>Nationality</th>
+                <th><a data-ng-click="orderByField='role'; reverseSort = !reverseSort">Role</a></th>
+                <th><a data-ng-click="orderByField='skillAvg'; reverseSort = !reverseSort">Avg</a></th>
+                <th><a data-ng-click="orderByField='val'; reverseSort = !reverseSort">Val</a></th>
+                <th><a data-ng-click="orderByField='wageReq'; reverseSort = !reverseSort">Wage</a></th>
+                </thead>
+                <tr data-ng-repeat="player in vm.team.roster | filter:searchText |orderBy:orderByField:reverseSort">
+                    <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.team.id, playerId: player.id })">#</a></td>
+                    <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.team.id, playerId: player.id })">{{ player.name| capitalize }} {{ player.surname| capitalize }}</a></td>
+                    <td>{{ player.age }}</td>
+                    <td>
+                        <ul class="f32">
+                            <li title="{{player.nationality}}" class="flag {{player.nationality.toLowerCase()}}"></li>
+                        </ul>
+                    </td>
+                    <td>{{ player.role }}</td>
+                    <td>{{ player.skillAvg }}</td>
+                    <td>{{ player.val | currency:''}} m €</td>
+                    <td>{{ player.wageReq | currency:''}} m €</td>
+                </tr>
+            </table>
+        </div>
+        <div data-risultatisezione></div>
+    </div>
+</div>

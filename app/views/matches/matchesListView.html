@@ -1,0 +1,24 @@
+<div data-cg-busy="Promessa">
+    <div class="panel panel-default">
+        <div class="panel-heading">Matches</div>
+        <div class="panel-body">
+            <div data-textfilterfull></div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <th>#</th>
+            <th>Home Team</th>
+            <th>Away Team</th>
+            <th>Score</th>
+            <th>Simulated</th>
+            </thead>
+            <tr data-ng-repeat="match in vm.matches | filter:searchText">
+                <td><a data-ui-sref="matchOne({ matchId: match.id })">#</a></td>
+                <td><a data-ui-sref="teamOne({ teamId: match.home_team.id })">{{ match.home_team.name| capitalize }}</a></td>
+                <td><a data-ui-sref="teamOne({ teamId: match.away_team.id })">{{ match.away_team.name| capitalize }}</a></td>
+                <td><a data-ui-sref="matchOne({ matchId: match.away_team.id })">{{ match.goal_home }} - {{ match.goal_away }}</a></td>
+                <td>{{ match.simulated }}</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
