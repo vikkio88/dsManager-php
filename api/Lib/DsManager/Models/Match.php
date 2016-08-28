@@ -3,12 +3,13 @@
 namespace App\Lib\DsManager\Models;
 
 use App\Lib\DsManager\Helpers\Randomizer;
+use App\Lib\DsManager\Models\Common\DsManagerModel;
 
 /**
  * Class Match
  * @package App\Lib\DsManager\Models
  */
-class Match
+class Match extends DsManagerModel
 {
     /**
      * @var Team
@@ -149,4 +150,25 @@ class Match
         }
     }
 
+    /**
+     * @param array $ormMatchArray
+     * @return Match
+     */
+    public static function fromArray($ormMatchArray = [])
+    {
+        $homeTeam = Team::fromArray($ormMatchArray['home_team']);
+        $awayTeam = Team::fromArray($ormMatchArray['away_team']);
+        return new Match($homeTeam, $awayTeam);
+    }
+
+    /**
+     * @return mixed
+     */
+    function toArray()
+    {
+        $result = [];
+        $result['home_team_id'] = $this->homeTeam->id;
+        $result['away_team_id'] = $this->awayTeam->id;
+        return $result;
+    }
 }

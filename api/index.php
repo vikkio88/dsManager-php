@@ -107,4 +107,111 @@ $api->get('/teams/{id}/coach', function ($request, $response, $args) {
     );
 });
 
+$api->get('/matches', function ($request, $response, $args) {
+    return Responder::getJsonResponse(
+        \App\Lib\DsManager\Models\Orm\Match::with(
+            'homeTeam',
+            'awayTeam'
+        )->get(),
+        $response
+    );
+});
+
+$api->get('/matches/{id}', function ($request, $response, $args) {
+    return Responder::getJsonResponse(
+        \App\Lib\DsManager\Models\Orm\Match::with(
+            'homeTeam',
+            'homeTeam.roster',
+            'homeTeam.coach',
+            'awayTeam',
+            'awayTeam.roster',
+            'awayTeam.coach'
+        )->where(
+            [
+                'id' => $args['id']
+            ]
+        )->first(),
+        $response
+    );
+});
+
+$api->get('/matches/{id}/result', function ($request, $response, $args) {
+    $result = \App\Lib\DsManager\Models\Orm\MatchResult::with(
+        'homeTeam',
+        'homeTeam.roster',
+        'homeTeam.coach',
+        'awayTeam',
+        'awayTeam.roster',
+        'awayTeam.coach'
+    )->where(
+        [
+            'id' => $args['id']
+        ]
+    )->first();
+
+    return Responder::getJsonResponse(
+        $result,
+        $response
+    );
+});
+
+$api->put('/matches/{id}/simulate', function ($request, $response, $args) {
+    $result = \App\Lib\DsManager\Models\Orm\MatchResult::with(
+        'homeTeam',
+        'homeTeam.roster',
+        'homeTeam.coach',
+        'awayTeam',
+        'awayTeam.roster',
+        'awayTeam.coach'
+    )->where(
+        [
+            'id' => $args['id']
+        ]
+    )->first();
+
+    if (!empty($result) && !$result->simulated) {
+        //simulate match
+        $match = \App\Lib\DsManager\Models\Match::fromArray(
+            \App\Lib\DsManager\Models\Orm\Match::with(
+                'homeTeam',
+                'homeTeam.roster',
+                'homeTeam.coach',
+                'awayTeam',
+                'awayTeam.roster',
+                'awayTeam.coach'
+            )->where(
+                [
+                    'id' => $args['id']
+                ]
+            )->first()->toArray()
+        );
+        $matchResult = $match->simulate()->toArray();
+        $result = \App\Lib\DsManager\Models\Orm\MatchResult::where(
+            [
+                'id' => $args['id']
+            ]
+        )->update(
+            $matchResult
+        );
+        if ($result === 1) {
+            $result = \App\Lib\DsManager\Models\Orm\MatchResult::with(
+                'homeTeam',
+                'homeTeam.roster',
+                'homeTeam.coach',
+                'awayTeam',
+                'awayTeam.roster',
+                'awayTeam.coach'
+            )->where(
+                [
+                    'id' => $args['id']
+                ]
+            )->first();
+        }
+
+    }
+    return Responder::getJsonResponse(
+        $result,
+        $response
+    );
+});
 $api->run();

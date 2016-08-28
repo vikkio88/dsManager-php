@@ -3,6 +3,7 @@
 namespace App\Lib\DsManager\Models;
 
 use App\Lib\DsManager\Helpers\Randomizer;
+use App\Lib\DsManager\Models\Common\DsManagerModel;
 use App\Lib\Helpers\Config;
 
 
@@ -10,7 +11,7 @@ use App\Lib\Helpers\Config;
  * Class MatchResult
  * @package App\Lib\DsManager\Models
  */
-class MatchResult
+class MatchResult extends DsManagerModel
 {
     /**
      * @var
@@ -77,10 +78,12 @@ class MatchResult
     public function toArray()
     {
         $result = [];
-        $result["goalHome"] = $this->goalHome;
-        $result["goalAway"] = $this->goalAway;
+        $result["goal_home"] = $this->goalHome;
+        $result["goal_away"] = $this->goalAway;
         $result['info'] = $this->getWinnerLoser();
         $result['info']['scorers'] = $this->getScorers();
+        $result['info'] = json_encode($result['info']);
+        $result['simulated'] = true;
         return $result;
     }
 
