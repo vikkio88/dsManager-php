@@ -94,13 +94,32 @@
                                 templateUrl: "app/views/matches/matchesListView.html",
                                 controller: "MatchesController as vm",
                                 ncyBreadcrumb: {
-                                    parent: '',
                                     label: 'Matches'
                                 }
                             }
                         )
-
-
+                        .state("matchOne",
+                            {
+                                url:"/matches/:matchId",
+                                templateUrl: "app/views/matches/matchDetails.html",
+                                controller: "MatchDetailsController as vm",
+                                ncyBreadcrumb: {
+                                    parent: 'matches',
+                                    label: 'Match Result'
+                                }
+                            }
+                        )
+                        .state("simulateMatch",
+                            {
+                                url:"/matches/:matchId/simulated",
+                                templateUrl: "app/views/matches/matchDetails.html",
+                                controller: "SimulateMatchController as vm",
+                                ncyBreadcrumb: {
+                                    parent: 'matches',
+                                    label: 'Match Result'
+                                }
+                            }
+                        )
                     ;
                 }]
         );

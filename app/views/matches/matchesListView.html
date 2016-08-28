@@ -16,8 +16,11 @@
                 <td><a data-ui-sref="matchOne({ matchId: match.id })">#</a></td>
                 <td><a data-ui-sref="teamOne({ teamId: match.home_team.id })">{{ match.home_team.name| capitalize }}</a></td>
                 <td><a data-ui-sref="teamOne({ teamId: match.away_team.id })">{{ match.away_team.name| capitalize }}</a></td>
-                <td><a data-ui-sref="matchOne({ matchId: match.away_team.id })">{{ match.goal_home }} - {{ match.goal_away }}</a></td>
-                <td>{{ match.simulated }}</a></td>
+                <td><a data-ui-sref="matchOne({ matchId: match.id })">{{ match.goal_home }} - {{ match.goal_away }}</a></td>
+                <td>
+                    <span ng-show="match.simulated" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <span ng-hide="match.simulated" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </td>
             </tr>
         </table>
     </div>

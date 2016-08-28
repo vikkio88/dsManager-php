@@ -4,15 +4,15 @@
 
         angular.module("DsManager")
             .controller(
-                "MatchDetailsController",
+                "SimulateMatchController",
                 [
                     "Common",
                     "$scope",
                     "$stateParams",
-                    MatchDetailsController
+                    SimulateMatchController
                 ]);
 
-        function MatchDetailsController(
+        function SimulateMatchController(
             Common,
             $scope,
             $stateParams
@@ -21,9 +21,9 @@
             var vm = this;
             vm.match = {};
 
-            Common.Get
+            Common.Put
             (
-                "matches/"+$stateParams.matchId+"/result"
+                "matches/"+$stateParams.matchId+"/simulate"
             ).then(
                 function(data){
                     if(Common.isDebug()) console.log(data.data);

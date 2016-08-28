@@ -16,6 +16,9 @@
                 },
                 Get : function(uri){
                     return  $http.get(config.apiUrl+uri);
+                },
+                Put : function(uri, body){
+                    return  $http.put(config.apiUrl+uri, body);
                 }
             }
         });
