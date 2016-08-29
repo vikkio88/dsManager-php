@@ -117,6 +117,17 @@ $api->get('/matches', function ($request, $response, $args) {
     );
 });
 
+$api->post('/matches', function ($request, $response, $args) {
+    $json = $request->getBody();
+    $json = json_decode($json, true);
+    return Responder::getJsonResponse(
+        \App\Lib\DsManager\Models\Orm\Match::create(
+            $json
+        ),
+        $response
+    );
+});
+
 $api->get('/matches/{id}', function ($request, $response, $args) {
     return Responder::getJsonResponse(
         \App\Lib\DsManager\Models\Orm\Match::with(

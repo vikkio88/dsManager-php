@@ -12,7 +12,7 @@
             <th>Score</th>
             <th>Simulated</th>
             </thead>
-            <tr data-ng-repeat="match in vm.matches | filter:searchText">
+            <tr ng-class="match.id === newMatch.id?'info':''" data-ng-repeat="match in vm.matches | filter:searchText">
                 <td><a data-ui-sref="matchOne({ matchId: match.id })">#</a></td>
                 <td><a data-ui-sref="teamOne({ teamId: match.home_team.id })">{{ match.home_team.name| capitalize }}</a></td>
                 <td><a data-ui-sref="teamOne({ teamId: match.away_team.id })">{{ match.away_team.name| capitalize }}</a></td>
@@ -23,5 +23,13 @@
                 </td>
             </tr>
         </table>
+
+        <div class="pull-right">
+            <a data-ui-sref="createMatch()">
+                <button type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Match
+                </button>
+            </a>
+        </div>
     </div>
 </div>

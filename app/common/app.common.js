@@ -19,6 +19,9 @@
                 },
                 Put : function(uri, body){
                     return  $http.put(config.apiUrl+uri, body);
+                },
+                Post : function(uri, body){
+                    return  $http.post(config.apiUrl+uri, JSON.stringify(body));
                 }
             }
         });

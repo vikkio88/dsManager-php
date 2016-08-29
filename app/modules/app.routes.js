@@ -120,6 +120,28 @@
                                 }
                             }
                         )
+                        .state("createMatch",
+                            {
+                                url:"/add/match",
+                                templateUrl: "app/views/matches/newMatch.html",
+                                controller: "NewMatchController as vm",
+                                ncyBreadcrumb: {
+                                    parent: 'matches',
+                                    label: 'New Match'
+                                }
+                            }
+                        )
+                        .state("addMatch",
+                            {
+                                url:"/matches",
+                                params: { homeId: null, awayId:null },
+                                templateUrl: "app/views/matches/matchesListView.html",
+                                controller: "AddMatchController as vm",
+                                ncyBreadcrumb: {
+                                    label: 'Matches'
+                                }
+                            }
+                        )
                     ;
                 }]
         );
