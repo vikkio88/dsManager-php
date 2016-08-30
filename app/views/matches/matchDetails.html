@@ -9,33 +9,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h2><a data-ui-sref="teamOne({ teamId: vm.match.home_team.id})">{{ vm.match.home_team.name | capitalize }}</a></h2> <h1>{{ vm.match.goal_home }}</h1>
-                            <table ng-show="vm.match.simulated" class="table table-striped">
-                                <thead>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Role</th>
-                                </thead>
-                                <tr data-ng-repeat="scorer in vm.match.info.scorers.home">
-                                    <td></td>
-                                    <td>{{ scorer.name| capitalize }} {{ scorer.surname| capitalize }}</td>
-                                    <td>{{ scorer.role }}</td>
-                                </tr>
-                                </table>
+                            <div ng-show="vm.match.simulated" scorers-list scorers="vm.match.info.scorers.home"></div>
                         </div>
                         <div class="col-md-6">
                             <h2><a data-ui-sref="teamOne({ teamId: vm.match.away_team.id})">{{ vm.match.away_team.name | capitalize }}</a></h2> <h1>{{ vm.match.goal_away }} </h1>
-                            <table ng-show="vm.match.simulated" class="table table-striped">
-                                <thead>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Role</th>
-                                </thead>
-                                <tr data-ng-repeat="scorer in vm.match.info.scorers.away">
-                                    <td></td>
-                                    <td>{{ scorer.name| capitalize }} {{ scorer.surname| capitalize }}</td>
-                                    <td>{{ scorer.role }}</td>
-                                </tr>
-                            </table>
+                            <div ng-show="vm.match.simulated" scorers-list scorers="vm.match.info.scorers.away"></div>
                         </div>
                     </div>
                 </div>
@@ -44,45 +22,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h3><a data-ui-sref="teamOne({ teamId: vm.match.home_team.id})">{{ vm.match.home_team.name | capitalize }}</a></h3>
-                        <table class="table table-striped">
-                            <thead>
-                            <th>#</th>
-                            <th><a data-ng-click="orderByField='name'; reverseSort = !reverseSort">Name</a></th>
-                            <th>Nationality</th>
-                            <th><a data-ng-click="orderByField='role'; reverseSort = !reverseSort">Role</a></th>
-                            </thead>
-                            <tr data-ng-repeat="player in vm.match.home_team.roster | filter:searchText |orderBy:orderByField:reverseSort">
-                                <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.match.home_team.id, playerId: player.id })">#</a></td>
-                                <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.match.home_team.id, playerId: player.id })">{{ player.name| capitalize }} {{ player.surname| capitalize }}</a></td>
-                                <td>
-                                    <ul class="f32">
-                                        <li title="{{player.nationality}}" class="flag {{player.nationality.toLowerCase()}}"></li>
-                                    </ul>
-                                </td>
-                                <td>{{ player.role }}</td>
-                            </tr>
-                        </table>
+                        <div team-small-roster team="vm.match.home_team"></div>
                     </div>
                     <div class="col-md-6">
                         <h3><a data-ui-sref="teamOne({ teamId: vm.match.away_team.id})">{{ vm.match.away_team.name | capitalize }}</a></h3>
-                        <table class="table table-striped">
-                            <thead>
-                            <th>#</th>
-                            <th><a data-ng-click="orderByField='name'; reverseSort = !reverseSort">Name</a></th>
-                            <th>Nationality</th>
-                            <th><a data-ng-click="orderByField='role'; reverseSort = !reverseSort">Role</a></th>
-                            </thead>
-                            <tr data-ng-repeat="player in vm.match.away_team.roster | filter:searchText |orderBy:orderByField:reverseSort">
-                                <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.match.away_team.id, playerId: player.id })">#</a></td>
-                                <td><a data-ui-sref="playerOneFromTeam({ teamId: vm.match.away_team.id, playerId: player.id })">{{ player.name| capitalize }} {{ player.surname| capitalize }}</a></td>
-                                <td>
-                                    <ul class="f32">
-                                        <li title="{{player.nationality}}" class="flag {{player.nationality.toLowerCase()}}"></li>
-                                    </ul>
-                                </td>
-                                <td>{{ player.role }}</td>
-                            </tr>
-                        </table>
+                        <div team-small-roster team="vm.match.away_team"></div>
                     </div>
                 </div>
             </div>

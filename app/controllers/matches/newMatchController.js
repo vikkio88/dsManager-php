@@ -20,8 +20,9 @@
         {
             var vm = this;
             vm.teams = {};
-            $scope.showAway = false;
-            $scope.showHome = false;
+            vm.isValidSelection = function (homeTeam, awayTeam) {
+                return (homeTeam !== undefined && awayTeam !== undefined && homeTeam.id != awayTeam.id);
+            };
 
             Common.Get
             (

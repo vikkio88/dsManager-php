@@ -1,0 +1,18 @@
+<table class="table table-striped">
+    <thead>
+    <th>#</th>
+    <th><a data-ng-click="orderByField='name'; reverseSort = !reverseSort">Name</a></th>
+    <th>Nationality</th>
+    <th><a data-ng-click="orderByField='role'; reverseSort = !reverseSort">Role</a></th>
+    </thead>
+    <tr data-ng-repeat="player in team.roster | filter:searchText |orderBy:orderByField:reverseSort">
+        <td><a data-ui-sref="playerOneFromTeam({ teamId: team.id, playerId: player.id })">#</a></td>
+        <td><a data-ui-sref="playerOneFromTeam({ teamId: team.id, playerId: player.id })">{{ player.name| capitalize }} {{ player.surname| capitalize }}</a></td>
+        <td>
+            <ul class="f32">
+                <li title="{{player.nationality}}" class="flag {{player.nationality.toLowerCase()}}"></li>
+            </ul>
+        </td>
+        <td>{{ player.role }}</td>
+    </tr>
+</table>

@@ -1,0 +1,27 @@
+<div data-textfilterfull></div>
+<table class="table table-striped">
+    <thead>
+    <th>#</th>
+    <th><a data-ng-click="orderByField='name'; reverseSort = !reverseSort">Name</a></th>
+    <th><a data-ng-click="orderByField='age'; reverseSort = !reverseSort">Age</a></th>
+    <th>Nationality</th>
+    <th><a data-ng-click="orderByField='role'; reverseSort = !reverseSort">Role</a></th>
+    <th><a data-ng-click="orderByField='skillAvg'; reverseSort = !reverseSort">Avg</a></th>
+    <th><a data-ng-click="orderByField='val'; reverseSort = !reverseSort">Val</a></th>
+    <th><a data-ng-click="orderByField='wageReq'; reverseSort = !reverseSort">Wage</a></th>
+    </thead>
+    <tr data-ng-repeat="player in team.roster | filter:searchText |orderBy:orderByField:reverseSort">
+        <td><a data-ui-sref="playerOneFromTeam({ teamId: team.id, playerId: player.id })">#</a></td>
+        <td><a data-ui-sref="playerOneFromTeam({ teamId: team.id, playerId: player.id })">{{ player.name| capitalize }} {{ player.surname| capitalize }}</a></td>
+        <td>{{ player.age }}</td>
+        <td>
+            <ul class="f32">
+                <li title="{{player.nationality}}" class="flag {{player.nationality.toLowerCase()}}"></li>
+            </ul>
+        </td>
+        <td>{{ player.role }}</td>
+        <td>{{ player.skillAvg }}</td>
+        <td>{{ player.val | currency:''}} m €</td>
+        <td>{{ player.wageReq | currency:''}} m €</td>
+    </tr>
+</table>

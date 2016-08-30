@@ -10,40 +10,22 @@
                         <div class="col-md-6">
                             <h3>Home Team</h3>
                             <select ng-model="homeTeam" ng-options="item.name for item in vm.teams"></select>
-                            <h2>
-                                {{homeTeam.name}}
-                                <span ng-hide="homeTeam == undefined" class="f32">
-                                    <span title="{{homeTeam.nationality}}" class="flag {{homeTeam.nationality.toLowerCase()}}"></span>
-                                </span>
-                            </h2>
-                            <a ng-hide="homeTeam == undefined" ui-sref="teamOne({teamId: homeTeam.id})">
-                                <button type="button" class="btn btn-large">
-                                    <span class="glyphicon glyphicon-zoom-in" ></span>
-                                </button>
-                            </a>
+                            <div singleteamh2 team="homeTeam"></div>
                         </div>
                         <div class="col-md-6">
                             <h3>Away Team</h3>
                             <select ng-model="awayTeam" ng-options="item.name for item in vm.teams"></select>
-                            <h2>
-                                {{awayTeam.name}}
-                                <span ng-hide="awayTeam == undefined" class="f32">
-                                    <span title="{{awayTeam.nationality}}" class="flag {{awayTeam.nationality.toLowerCase()}}"></span>
-                                </span>
-                            </h2>
-                            <a ng-hide="awayTeam == undefined" ui-sref="teamOne({teamId: awayTem.id})">
-                                <button type="button" class="btn btn-large">
-                                    <span class="glyphicon glyphicon-zoom-in" ></span>
-                                </button>
-                            </a>
+                            <div singleteamh2 team="awayTeam"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="pull-right">
-                <a data-ui-sref="addMatch({homeId:homeTeam.id, awayId:awayTeam.id})">
-                    <button type="button" class="btn btn-default btn-lg" ng-class="(homeTeam === undefined|| awayTeam === undefined) ? 'disabled' : ''">
+                <a eat-click-if="!vm.isValidSelection(homeTeam,awayTeam)"
+                   data-ui-sref="addMatch({homeId:homeTeam.id, awayId:awayTeam.id})">
+                    <button type="button" class="btn btn-default btn-lg"
+                            ng-class="vm.isValidSelection(homeTeam, awayTeam) ? '' : 'disabled'">
                         <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Add Match
                     </button>
                 </a>

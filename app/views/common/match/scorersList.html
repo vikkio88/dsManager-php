@@ -1,0 +1,12 @@
+<table class="table table-striped">
+    <thead>
+    <th>#</th>
+    <th>Name</th>
+    <th>Role</th>
+    </thead>
+    <tr data-ng-repeat="scorer in scorers">
+        <td></td>
+        <td>{{ scorer.name| capitalize }} {{ scorer.surname| capitalize }}</td>
+        <td>{{ scorer.role }}</td>
+    </tr>
+</table>
