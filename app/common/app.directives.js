@@ -61,6 +61,17 @@
             templateUrl: 'app/views/common/roundimagesample.html'
         }
     });
+    // Common
+    directives.directive('flagIcon', function () {
+       return {
+           restrict: 'AE',
+           replace: false,
+           scope: {
+               nationality:"=nationality"
+           },
+           templateUrl: 'app/views/common/shared/flagIcon.html'
+       }
+    });
 
     // Template directives
     directives.directive('singleteamh2', function () {

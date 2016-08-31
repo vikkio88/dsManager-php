@@ -14,9 +14,7 @@
                 <td><a data-ui-sref="teamOne({ teamId: team.id })">#</a></td>
                 <td><a data-ui-sref="teamOne({ teamId: team.id })">{{ team.name| capitalize }}</a></td>
                 <td>
-                    <ul class="f32">
-                        <li title="{{team.nationality}}" class="flag {{team.nationality.toLowerCase()}}"></li>
-                    </ul>
+                    <span flag-icon nationality="team.nationality"></span>
                 </td>
             </tr>
         </table>

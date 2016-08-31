@@ -9,9 +9,7 @@
         <td><a data-ui-sref="playerOneFromTeam({ teamId: team.id, playerId: player.id })">#</a></td>
         <td><a data-ui-sref="playerOneFromTeam({ teamId: team.id, playerId: player.id })">{{ player.name| capitalize }} {{ player.surname| capitalize }}</a></td>
         <td>
-            <ul class="f32">
-                <li title="{{player.nationality}}" class="flag {{player.nationality.toLowerCase()}}"></li>
-            </ul>
+            <span flag-icon nationality="player.nationality"></span>
         </td>
         <td>{{ player.role }}</td>
     </tr>

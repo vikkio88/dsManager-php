@@ -16,9 +16,7 @@
             </div>
             <div class="form-group">
                 <strong>Nationality:</strong>
-                <ul class="f32">
-                    <li title="{{vm.coach.nationality}}" class="flag {{vm.coach.nationality.toLowerCase()}}"></li>
-                </ul>
+                <span flag-icon nationality="vm.coach.nationality"></span>
             </div>
             <div class="form-group">
                 <strong>Skill:</strong> {{vm.coach.skillAvg}}
@@ -26,7 +24,6 @@
             <div class="form-group">
                 <strong>Wage:</strong> {{vm.coach.wageReq | currency: ''}} €
             </div>
-
         </div>
     </div>
 </div>

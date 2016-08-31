@@ -1,7 +1,7 @@
 <h2>
     {{team.name}}
-    <span ng-hide="team == undefined" class="f32">
-        <span title="{{team.nationality}}" class="flag {{team.nationality.toLowerCase()}}"></span>
+    <span ng-hide="team == undefined">
+        <span flag-icon nationality="team.nationality"></span>
     </span>
 </h2>
 <a ng-hide="team == undefined" ui-sref="teamOne({teamId: team.id})">
