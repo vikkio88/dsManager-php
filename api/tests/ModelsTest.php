@@ -93,6 +93,10 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
 
         for ($i = 1; $i <= 20; $i++) {
             $team = $rndF->getTeam();
+            $this->assertGreaterThanOrEqual(
+                \App\Lib\Helpers\Config::get('generic.rosters')['min'],
+                count($team->roster)
+            );
             $this->assertNotEmpty($team->name);
             $this->assertNotEmpty($team->nationality);
             $this->assertNotEmpty($team->getAvgSkill());

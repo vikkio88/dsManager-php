@@ -74,4 +74,35 @@ class OrmModelsTest extends \PHPUnit_Framework_TestCase
             )->get()->toArray()
         );
     }
+
+    /**
+     * @group Match
+     * @group createnewmatch
+     */
+    public function testCreateNewMatch()
+    {
+        $teams = \App\Lib\DsManager\Models\Orm\Team::with(
+            'roster',
+            'coach'
+        )->get();
+        $this->assertNotNull($teams);
+        $teams = $teams->toArray();
+        $homeIndex = array_rand($teams);
+        $teamHome = $teams[$homeIndex];
+        unset($teams[$homeIndex]);
+        $teamAway = $teams[array_rand($teams)];
+        $this->assertNotNull($teamHome);
+        $this->assertNotNull($teamAway);
+        $matchO = \App\Lib\DsManager\Models\Orm\Match::create(
+            [
+                'home_team_id' => $teamHome['id'],
+                'away_team_id' => $teamAway['id']
+            ]
+        );
+        $this->assertNotNull($matchO);
+        $matchNew = \App\Lib\DsManager\Models\Orm\Match::complete()->where('id', $matchO->id)->first();
+        $this->assertNotNull($matchNew);
+        $match = \App\Lib\DsManager\Models\Match::fromArray($matchNew->toArray());
+        $this->assertNotNull($match);
+    }
 }

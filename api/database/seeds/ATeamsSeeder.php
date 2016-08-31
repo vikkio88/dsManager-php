@@ -5,7 +5,7 @@ class ATeamsSeeder
 {
     function run()
     {
-        $teamNumber = 10;
+        $teamNumber = 16;
         $rndFiller = new \App\Lib\DsManager\Helpers\RandomFiller();
         for ($i = 1; $i <= $teamNumber; $i++) {
             $team = $rndFiller->getTeam($rndFiller->getLocale());

@@ -73,7 +73,11 @@ return [
 		'hu_HU',
 		'ro_MD',
 		'tr_TR'
-	]
+	],
+    'rosters' => [
+        'min' => 11,
+        'max'  => 18
+    ],
 ];
 
 

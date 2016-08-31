@@ -21,8 +21,7 @@ $api->get('/ping', function ($request, $response, $args) {
     $jsonResp = json_encode(
         [
             "status" => "service up",
-            "message" => "in a bottle",
-            "config" => \App\Lib\Helpers\Config::get("config1.stuff")
+            "message" => "in a bottle"
         ]
     );
     return Responder::getJsonResponse($jsonResp, $response);
@@ -57,14 +56,12 @@ $api->get('/teams', function ($request, $response, $args) {
 
 $api->get('/teams/{id}', function ($request, $response, $args) {
     return Responder::getJsonResponse(
-        Team::with(
-            'roster',
-            'coach'
-        )->where(
-            [
-                'id' => $args['id']
-            ]
-        )->get(),
+        Team::complete()
+            ->where(
+                [
+                    'id' => $args['id']
+                ]
+            )->get(),
         $response
     );
 });
@@ -130,18 +127,12 @@ $api->post('/matches', function ($request, $response, $args) {
 
 $api->get('/matches/{id}', function ($request, $response, $args) {
     return Responder::getJsonResponse(
-        \App\Lib\DsManager\Models\Orm\Match::with(
-            'homeTeam',
-            'homeTeam.roster',
-            'homeTeam.coach',
-            'awayTeam',
-            'awayTeam.roster',
-            'awayTeam.coach'
-        )->where(
-            [
-                'id' => $args['id']
-            ]
-        )->first(),
+        \App\Lib\DsManager\Models\Orm\Match::complete()
+            ->where(
+                [
+                    'id' => $args['id']
+                ]
+            )->first(),
         $response
     );
 });
