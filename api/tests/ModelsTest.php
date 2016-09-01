@@ -179,6 +179,7 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
     {
         $rndF = new \App\Lib\DsManager\Helpers\RandomFiller("it_IT");
         $myTeam = $rndF->getTeam();
+        $myTeam->id = 1000;
         $win = 0;
         $lost = 0;
         $draw = 0;
@@ -188,14 +189,14 @@ class ModelsTest extends \PHPUnit_Framework_TestCase
             $randomLocale = \App\Lib\Helpers\Config::get('generic.localesSmall');
             shuffle($randomLocale);
             $randomLocale = $randomLocale[0];
-
             $rndF = new \App\Lib\DsManager\Helpers\RandomFiller($randomLocale);
             $opponent = $rndF->getTeam();
+            $opponent->id = 6000;
             $result = (new \App\Lib\DsManager\Models\Match($opponent, $myTeam))->simulate()->toArray();
             $this->assertNotEmpty($result);
             $result = $result['info'];
             if (!$result['is_draw']) {
-                if ($result['winner']['name'] == $myTeam->name) {
+                if ($result['winner_id'] == $myTeam->id) {
                     $win++;
                 } else {
                     $lost++;

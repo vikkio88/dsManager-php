@@ -51,24 +51,18 @@ class MatchResult extends DsManagerModel
     public function getWinnerLoser()
     {
         $isDraw = false;
-        $winner = null;
-        $loser = null;
+        $winner = $this->awayTeam;
+        $loser = $this->homeTeam;
         if ($this->goalAway == $this->goalHome) {
             $isDraw = true;
+        } else if ($this->goalHome < $this->goalAway) {
             $winner = $this->homeTeam;
             $loser = $this->awayTeam;
-        } else if ($this->goalHome > $this->goalAway) {
-            $winner = $this->homeTeam;
-            $loser = $this->awayTeam;
-        } else {
-            $winner = $this->awayTeam;
-            $loser = $this->homeTeam;
         }
-
         return [
             'is_draw' => $isDraw,
-            'winner' => $this->cleanTeam($winner->toArray()),
-            'loser' => $this->cleanTeam($loser->toArray())
+            'winner_id' => $winner->id,
+            'loser' => $loser->id
         ];
     }
 
@@ -78,33 +72,15 @@ class MatchResult extends DsManagerModel
     public function toArray()
     {
         $result = [];
-        $result["goal_home"] = $this->goalHome;
-        $result["goal_away"] = $this->goalAway;
+        $result['home_team_id'] = $this->homeTeam->id;
+        $result['away_team_id'] = $this->awayTeam->id;
+        $result['goal_home'] = $this->goalHome;
+        $result['goal_away'] = $this->goalAway;
         $result['info'] = $this->getWinnerLoser();
         $result['info']['scorers'] = $this->getScorers();
         $result['simulated'] = true;
         return $result;
     }
-
-    /**
-     * @param array $team
-     * @return array
-     */
-    private function cleanTeam(array $team)
-    {
-        $fieldsToClean = [
-            'coach',
-            'roster',
-        ];
-
-        foreach ($fieldsToClean as $field) {
-            if (array_key_exists($field, $team)) {
-                unset($team[$field]);
-            }
-        }
-        return $team;
-    }
-
     /**
      * @return array
      */
