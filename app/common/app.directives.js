@@ -91,7 +91,8 @@
                 restrict: 'AE',
                 replace: false,
                 scope:{
-                    scorers : '=scorers'
+                    scorers : '=scorers',
+                    teamId : '=teamId'
                 },
                 templateUrl: 'app/views/common/match/scorersList.html'
             }

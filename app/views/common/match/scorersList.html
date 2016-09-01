@@ -3,10 +3,12 @@
     <th>#</th>
     <th>Name</th>
     <th>Role</th>
+    <th>Goals</th>
     </thead>
-    <tr data-ng-repeat="scorer in scorers">
+    <tr data-ng-repeat="scorer in scorers" ng-show="scorer.pivot.team_id == teamId">
         <td></td>
         <td>{{ scorer.name| capitalize }} {{ scorer.surname| capitalize }}</td>
         <td>{{ scorer.role }}</td>
+        <td>{{ scorer.pivot.goals }}</td>
     </tr>
 </table>

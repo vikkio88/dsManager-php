@@ -81,7 +81,10 @@ class MatchResult extends Match
             Player::class,
             'match_players',
             'match_id'
-        )->withPivot('team_id')->where(
+        )->withPivot(
+            'team_id',
+            'goals'
+        )->where(
             'goals', '>', 0
         );
     }

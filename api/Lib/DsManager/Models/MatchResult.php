@@ -56,13 +56,13 @@ class MatchResult extends DsManagerModel
         if ($this->goalAway == $this->goalHome) {
             $isDraw = true;
         } else if ($this->goalHome < $this->goalAway) {
-            $winner = $this->homeTeam;
-            $loser = $this->awayTeam;
+            $winner = $this->awayTeam;
+            $loser = $this->homeTeam;
         }
         return [
             'is_draw' => $isDraw,
             'winner_id' => $winner->id,
-            'loser' => $loser->id
+            'loser_id' => $loser->id
         ];
     }
 
