@@ -1,34 +1,63 @@
-<div data-cg-busy="Promessa">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3>{{ vm.player.name | capitalize }} {{ vm.player.surname | capitalize }}</h3>
-        </div>
-        <div class="panel-body">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">Player Info</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center"><span default-person-pic></span></div>
+            <div class=" col-md-9 col-lg-9 ">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Personal Information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Name:</td>
+                        <td>{{ vm.player.name | capitalize }} {{ vm.player.surname | capitalize }}</td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                        <td>{{ vm.player.age }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nationality</td>
+                        <td>
+                            <span flag-icon nationality="vm.player.nationality"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Professional Information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Role</td>
+                        <td>{{vm.player.role}}</td>
+                    </tr>
+                    <tr>
+                        <td>Skill</td>
+                        <td>{{vm.player.skillAvg}}</td>
+                    </tr>
+                    <tr>
+                        <td>Wage</td>
+                        <td>{{vm.player.wageReq | currency: ''}} €</td>
+                    </tr>
+                    <tr>
+                        <td>Market Value</td>
+                        <td>{{vm.player.val | currency: ''}} €</td>
+                    </tr>
 
-            <div class="form-group">
-                <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size: 50px"></span>
+                    </tbody>
+                </table>
             </div>
-            <div class="form-group">
-                <strong>Role:</strong> {{vm.player.role}}
-            </div>
-            <div class="form-group">
-                <strong>Age:</strong> {{ vm.player.age }}
-            </div>
-            <div class="form-group">
-                <strong>Nationality:</strong>
-                <span flag-icon nationality="vm.player.nationality"></span>
-            </div>
-            <div class="form-group">
-                <strong>Skill:</strong> {{vm.player.skillAvg}}
-            </div>
-            <div class="form-group">
-                <strong>Wage:</strong> {{vm.player.wageReq | currency: ''}} €
-            </div>
-            <div class="form-group">
-                <strong>Value:</strong> {{vm.player.val | currency: ''}} €
-            </div>
-
-
         </div>
     </div>
 </div>

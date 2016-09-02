@@ -51,6 +51,9 @@
         return {
             restrict: 'AE',
             replace: false,
+            scope: {
+                innerText:"=innerText"
+            },
             templateUrl: 'app/views/common/textfilterfull.html'
         }
     });
@@ -70,6 +73,20 @@
                nationality:"=nationality"
            },
            templateUrl: 'app/views/common/shared/flagIcon.html'
+       }
+    });
+    directives.directive('defaultPersonPic', function () {
+       return {
+           restrict: 'AE',
+           replace: false,
+           templateUrl: 'app/views/common/shared/defaultPersonPic.html'
+       }
+    });
+    directives.directive('defaultTeamIcon', function () {
+       return {
+           restrict: 'AE',
+           replace: false,
+           templateUrl: 'app/views/common/shared/defaultTeamIcon.html'
        }
     });
 
