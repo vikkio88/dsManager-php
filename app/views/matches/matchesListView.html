@@ -4,6 +4,11 @@
         <div class="panel-body">
             <div data-textfilterfull></div>
         </div>
+        <style type="text/css">
+            .info {
+                background-color: #5bc0de;
+            }
+        </style>
         <table class="table table-striped">
             <thead>
             <th>#</th>
@@ -12,7 +17,7 @@
             <th>Score</th>
             <th>Simulated</th>
             </thead>
-            <tr ng-class="match.id === newMatch.id?'info':''" data-ng-repeat="match in vm.matches | filter:searchText">
+            <tr data-ng-repeat="match in vm.matches | filter:searchText">
                 <td><a data-ui-sref="matchOne({ matchId: match.id })">#</a></td>
                 <td><a data-ui-sref="teamOne({ teamId: match.home_team.id })">{{ match.home_team.name| capitalize }}</a></td>
                 <td><a data-ui-sref="teamOne({ teamId: match.away_team.id })">{{ match.away_team.name| capitalize }}</a></td>

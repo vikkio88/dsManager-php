@@ -133,7 +133,7 @@
                         )
                         .state("addMatch",
                             {
-                                url:"/matches",
+                                url:"/new/matches",
                                 params: { homeId: null, awayId:null },
                                 templateUrl: "app/views/matches/matchesListView.html",
                                 controller: "AddMatchController as vm",

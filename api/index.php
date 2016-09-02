@@ -81,7 +81,7 @@ $api->get('/teams/{id}/players', function ($request, $response, $args) {
 
 $api->get('/teams/{id}/players/{playerId}', function ($request, $response, $args) {
     return Responder::getJsonResponse(
-        Player::where(
+        Player::with('matches','goals')->where(
             [
                 'id' => $args['playerId'],
                 'team_id' => $args['id']

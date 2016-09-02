@@ -61,3 +61,43 @@
         </div>
     </div>
 </div>
+
+<div ng-hide="vm.player.matches.length ==0" class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">Statistics</h2>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <tr>
+                <td>Goals</td>
+                <td>{{vm.player.goals.count}}</td>
+            </tr>
+        </table>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Last Matches</th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th>Vote</th>
+                <th>Goals</th>
+                <th>Match Info</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="match in vm.player.matches">
+                <td></td>
+                <td>{{match.vote}}</td>
+                <td>{{match.goals}}</td>
+                <td>
+                    <a ui-sref="matchOne({matchId: match.match_id})">
+                        <button type="button" class="btn btn-large">
+                            <span class="glyphicon glyphicon-zoom-in"></span>
+                        </button>
+                    </a>
+                </td>
+            </tr>
+    </div>
+</div>
