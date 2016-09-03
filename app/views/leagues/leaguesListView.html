@@ -1,0 +1,18 @@
+    <div class="panel panel-default">
+        <div class="panel-heading">Leagues</div>
+        <div class="panel-body">
+            <div data-textfilterfull></div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <th>#</th>
+            <th>League Name</th>
+            <th>Teams</th>
+            </thead>
+            <tr data-ng-repeat="league in vm.leagues | filter:searchText">
+                <td><a data-ui-sref="leagueOne({ leagueId: league.id })">#</a></td>
+                <td><a data-ui-sref="leagueOne({ leagueId: league.id })">{{ league.name | capitalize }}</a></td>
+                <td>{{ league.teams }}</td>
+            </tr>
+        </table>
+    </div>

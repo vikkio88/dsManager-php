@@ -88,6 +88,38 @@
                                 }
                             }
                         )
+                        .state("leagues",
+                            {
+                                url:"/leagues",
+                                templateUrl: "app/views/leagues/leaguesListView.html",
+                                controller: "LeaguesController as vm",
+                                ncyBreadcrumb: {
+                                    label: 'Leagues'
+                                }
+                            }
+                        )
+                        .state("leagueOne",
+                            {
+                                url:"/leagues/:leagueId",
+                                templateUrl: "app/views/leagues/leagueDetails.html",
+                                controller: "LeagueDetailsController as vm",
+                                ncyBreadcrumb: {
+                                    parent: 'leagues',
+                                    label: 'League Details'
+                                }
+                            }
+                        )
+                        .state("roundOne",
+                            {
+                                url:"/leagues/:leagueId/rounds/:roundId/matches",
+                                templateUrl: "app/views/leagues/leagueRoundDetails.html",
+                                controller: "LeagueRoundDetailsController as vm",
+                                ncyBreadcrumb: {
+                                    parent: 'leagueOne',
+                                    label: 'Round Details'
+                                }
+                            }
+                        )
                         .state("matches",
                             {
                                 url:"/matches",

@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">League Details</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 col-lg-3" align="center">
+                <h1>{{ vm.league.name | capitalize }}</h1>
+                <br>
+                <span default-team-icon></span>
+
+            </div>
+            <div class="col-md-9 col-lg-9">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    <td>Teams:</td>
+                    <td>
+                        {{vm.league.teams}}
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <th>League Rounds</th>
+        </thead>
+        <thead>
+        <th>#</th>
+        <th>Match day</th>
+        <th>Simulated</th>
+        </thead>
+        <tr data-ng-repeat="round in vm.league.rounds">
+            <td><a data-ui-sref="roundOne({ leagueId: vm.league.id, roundId: round.id })">#</a></td>
+            <td><a data-ui-sref="roundOne({ leagueId: vm.league.id, roundId: round.id })">{{ round.day }}</a></td>
+            <td>
+                <span ng-show="match.simulated" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <span ng-hide="match.simulated" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </td>
+        </tr>
+    </table>
+</div>
