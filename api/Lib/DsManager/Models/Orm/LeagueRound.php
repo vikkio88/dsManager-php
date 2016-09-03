@@ -3,16 +3,16 @@
 namespace App\Lib\DsManager\Models\Orm;
 
 /**
- * Class MatchDay
+ * Class LeagueRound
  * @package App\Lib\DsManager\Models\Orm
  */
-class MatchDay extends DsManagerOrm
+class LeagueRound extends DsManagerOrm
 {
 
     /**
      * @var string
      */
-    protected $table = 'league_match_days';
+    protected $table = 'league_rounds';
 
     /**
      * @var array

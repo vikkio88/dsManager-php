@@ -1,29 +1,53 @@
 <?php
 
 
+use App\Lib\DsManager\Helpers\LeagueFixtureGenerator;
+use App\Lib\DsManager\Models\Orm\League;
+use App\Lib\DsManager\Models\Orm\LeagueRound;
+use App\Lib\DsManager\Models\Orm\Match;
+use App\Lib\DsManager\Models\Orm\Team;
+
 class A001LeaguesSeeder
 {
     function run()
     {
         $leagues = [
-            'friendly' => 5,
-            'europa league' => 2
+            'friendly' => 16,
+            'europa league' => 8
         ];
+        $teams = Team::all()->toArray();
+        foreach ($leagues as $league => $teamsNum) {
 
-        foreach ($leagues as $league => $dayMatches) {
-            $league = \App\Lib\DsManager\Models\Orm\League::create(
+            $teamCopy = $teams;
+            $league = League::create(
                 [
-                    'name' => $league
+                    'name' => $league,
+                    'teams' => $teamsNum
                 ]
             );
 
-            for ($i = 1; $i <= $dayMatches; $i++) {
-                \App\Lib\DsManager\Models\Orm\MatchDay::create(
+            //Create Rounds
+            shuffle($teamCopy);
+            $teamCopy = array_splice($teamCopy, 0, $teamsNum);
+            $rounds = LeagueFixtureGenerator::generate($teamCopy);
+            foreach ($rounds as $i => $round) {
+
+                $leagueRound = LeagueRound::create(
                     [
                         'league_id' => $league->id,
-                        'day' => $i
+                        'day' => $i + 1
                     ]
                 );
+
+                foreach ($round as $match) {
+                    $newMatch = Match::create(
+                        [
+                            'home_team_id' => $match['home_team_id'],
+                            'away_team_id' => $match['away_team_id'],
+                            'league_round_id' => $leagueRound->id
+                        ]
+                    );
+                }
             }
         }
     }

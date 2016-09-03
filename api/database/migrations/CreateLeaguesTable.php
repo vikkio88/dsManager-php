@@ -16,6 +16,7 @@ class CreateLeaguesTable
         Capsule::schema()->create('leagues', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->unsignedTinyInteger('teams')->default(2);
             $table->timestamps();
         });
     }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Capsule\Manager as Capsule;
 use \Illuminate\Database\Schema\Blueprint as Blueprint;
 
-class CreateLeagueMatchDaysTable
+class CreateLeagueRoundsTable
 {
     /**
      * Run the migrations.
@@ -12,8 +12,8 @@ class CreateLeagueMatchDaysTable
      */
     public function run()
     {
-        Capsule::schema()->dropIfExists('league_match_days');
-        Capsule::schema()->create('league_match_days', function (Blueprint $table) {
+        Capsule::schema()->dropIfExists('league_rounds');
+        Capsule::schema()->create('league_rounds', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('league_id');
             $table->integer('day')->default(0);

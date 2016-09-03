@@ -17,14 +17,15 @@ class League extends DsManagerOrm
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
+        'teams'
     ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function match_days()
+    public function rounds()
     {
-        return $this->hasMany(MatchDay::class);
+        return $this->hasMany(LeagueRound::class);
     }
 } 

@@ -5,6 +5,7 @@ require_once("vendor/autoload.php");
 
 
 use App\Lib\DsManager\Helpers\MatchSimulator;
+use App\Lib\DsManager\Models\Orm\League;
 use App\Lib\DsManager\Models\Orm\Match;
 use App\Lib\DsManager\Models\Orm\MatchResult;
 use \App\Lib\Helpers\Responder;
@@ -107,12 +108,38 @@ $api->get('/teams/{id}/coach', function ($request, $response, $args) {
     );
 });
 
+$api->get('/leagues', function ($request, $response, $args) {
+    return Responder::getJsonResponse(
+        League::all(),
+        $response
+    );
+});
+
+$api->get('/leagues/{id}', function ($request, $response, $args) {
+    return Responder::getJsonResponse(
+        League::with('rounds')
+            ->where(
+                [
+                    'id' => $args['id']
+                ]
+            )->first(),
+        $response
+    );
+});
+$api->get('/leagues/{id}/rounds/{roundId}/matches', function ($request, $response, $args) {
+    return Responder::getJsonResponse(
+        Match::teams()
+            ->where(
+                [
+                    'league_round_id' => $args['roundId'],
+                ]
+            )->get(),
+        $response
+    );
+});
 $api->get('/matches', function ($request, $response, $args) {
     return Responder::getJsonResponse(
-        Match::with(
-            'homeTeam',
-            'awayTeam'
-        )->get(),
+        Match::teams()->get(),
         $response
     );
 });

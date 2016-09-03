@@ -15,7 +15,7 @@ class CreateMatchTable
         Capsule::schema()->dropIfExists('matches');
         Capsule::schema()->create('matches', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('league_match_day_id');
+            $table->integer('league_round_id')->nullable();
             $table->integer('home_team_id');
             $table->integer('goal_home')->default(0);
             $table->integer('away_team_id');

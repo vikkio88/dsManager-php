@@ -19,7 +19,8 @@ class Match extends DsManagerOrm
      */
     protected $fillable = [
         'home_team_id',
-        'away_team_id'
+        'away_team_id',
+        'league_round_id'
     ];
 
     /**
@@ -56,7 +57,16 @@ class Match extends DsManagerOrm
         return $this->belongsTo(Team::class, 'away_team_id');
     }
 
-    public function scopeComplete($query){
+    public function scopeTeams($query)
+    {
+        return $query->with(
+            'homeTeam',
+            'awayTeam'
+        );
+    }
+
+    public function scopeComplete($query)
+    {
         return $query->with(
             'homeTeam',
             'homeTeam.roster',
