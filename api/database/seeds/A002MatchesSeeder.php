@@ -1,7 +1,7 @@
 <?php
 
 
-class BMatchesSeeder
+class A002MatchesSeeder
 {
     function run()
     {

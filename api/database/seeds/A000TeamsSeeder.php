@@ -1,7 +1,7 @@
 <?php
 
 
-class ATeamsSeeder
+class A000TeamsSeeder
 {
     function run()
     {
