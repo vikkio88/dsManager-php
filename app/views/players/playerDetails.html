@@ -39,6 +39,10 @@
                     </thead>
                     <tbody>
                     <tr>
+                        <td>Team</td>
+                        <td><a ui-sref="teamOne({teamId: vm.player.team.id })">{{vm.player.team.name}}</a></td>
+                    </tr>
+                    <tr>
                         <td>Role</td>
                         <td>{{vm.player.role}}</td>
                     </tr>
@@ -62,15 +66,25 @@
     </div>
 </div>
 
-<div ng-hide="vm.player.matches.length ==0" class="panel panel-default">
+<div ng-hide="vm.player.last_matches.length ==0" class="panel panel-default">
     <div class="panel-heading">
         <h2 class="panel-title">Statistics</h2>
     </div>
     <div class="panel-body">
         <table class="table table-striped">
             <tr>
+                <td>Appearances</td>
+                <td>{{vm.player.appearances.count}}</td>
+            </tr>
+
+            <tr>
                 <td>Goals</td>
                 <td>{{vm.player.goals.count}}</td>
+            </tr>
+
+            <tr>
+                <td>Avg</td>
+                <td>{{vm.player.avg.avg}}</td>
             </tr>
         </table>
 
@@ -80,15 +94,13 @@
                 <th>Last Matches</th>
             </tr>
             <tr>
-                <th>#</th>
                 <th>Vote</th>
                 <th>Goals</th>
                 <th>Match Info</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="match in vm.player.matches">
-                <td></td>
+            <tr ng-repeat="match in vm.player.last_matches">
                 <td>{{match.vote}}</td>
                 <td>{{match.goals}}</td>
                 <td>

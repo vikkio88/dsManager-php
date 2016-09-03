@@ -37,7 +37,7 @@ class Player extends DsManagerOrm
         return $this->belongsTo(Team::class);
     }
 
-    public function matches()
+    public function lastMatches()
     {
         return $this->hasMany(MatchPlayer::class)
             ->orderBy('updated_at', 'DESC')
@@ -51,4 +51,28 @@ class Player extends DsManagerOrm
             ->groupBy('player_id');
     }
 
+    public function appearances()
+    {
+        return $this->hasOne(MatchPlayer::class)
+            ->selectRaw('player_id, count(match_id) as count')
+            ->groupBy('player_id');
+    }
+
+    public function avg()
+    {
+        return $this->hasOne(MatchPlayer::class)
+            ->selectRaw('player_id, round(avg(vote),2) as avg')
+            ->groupBy('player_id');
+    }
+
+    public function scopeStatistics($query)
+    {
+        return $query->with(
+            'goals',
+            'appearances',
+            'avg',
+            'lastMatches',
+            'team'
+        );
+    }
 }

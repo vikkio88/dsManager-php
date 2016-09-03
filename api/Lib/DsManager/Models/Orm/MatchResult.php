@@ -35,6 +35,13 @@ class MatchResult extends Match
 
     public static function resolveAttributes(array $attributes, $matchId)
     {
+        self::generateAppearances(
+            [
+                $attributes['home_team_id'],
+                $attributes['away_team_id']
+            ],
+            $matchId
+        );
         if (array_key_exists('info', $attributes)) {
             if (array_key_exists('scorers', $attributes['info'])) {
                 foreach ($attributes['info']['scorers']['home'] as $scorerHome) {
@@ -72,6 +79,26 @@ class MatchResult extends Match
                     'goals' => 1
                 ]
             );
+        }
+    }
+
+    private static function generateAppearances(
+        $teamIds,
+        $matchId
+    )
+    {
+        foreach ($teamIds as $id) {
+            $players = Player::where('team_id', $id)->get()->random(11);
+            foreach ($players as $player) {
+                MatchPlayer::create(
+                    [
+                        'match_id' => $matchId,
+                        'team_id' => $id,
+                        'player_id' => $player->id,
+                        'vote' => rand(3, 7)
+                    ]
+                );
+            }
         }
     }
 
