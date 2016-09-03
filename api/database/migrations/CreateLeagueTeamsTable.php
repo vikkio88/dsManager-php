@@ -12,7 +12,7 @@ class CreateLeagueTeamsTable
      */
     public function run()
     {
-        Capsule::schema()->dropIfExists('leagues');
+        Capsule::schema()->dropIfExists('league_teams');
         Capsule::schema()->create('league_teams', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('league_id');
