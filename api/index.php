@@ -4,6 +4,9 @@
 require_once("vendor/autoload.php");
 
 
+use App\Lib\DsManager\Helpers\MatchSimulator;
+use App\Lib\DsManager\Models\Orm\Match;
+use App\Lib\DsManager\Models\Orm\MatchResult;
 use \App\Lib\Helpers\Responder;
 use \App\Lib\DsManager\Models\Orm\Player;
 use \App\Lib\DsManager\Models\Orm\Team;
@@ -106,7 +109,7 @@ $api->get('/teams/{id}/coach', function ($request, $response, $args) {
 
 $api->get('/matches', function ($request, $response, $args) {
     return Responder::getJsonResponse(
-        \App\Lib\DsManager\Models\Orm\Match::with(
+        Match::with(
             'homeTeam',
             'awayTeam'
         )->get(),
@@ -118,7 +121,7 @@ $api->post('/matches', function ($request, $response, $args) {
     $json = $request->getBody();
     $json = json_decode($json, true);
     return Responder::getJsonResponse(
-        \App\Lib\DsManager\Models\Orm\Match::create(
+        Match::create(
             $json
         ),
         $response
@@ -127,7 +130,7 @@ $api->post('/matches', function ($request, $response, $args) {
 
 $api->get('/matches/{id}', function ($request, $response, $args) {
     return Responder::getJsonResponse(
-        \App\Lib\DsManager\Models\Orm\Match::complete()
+        Match::complete()
             ->where(
                 [
                     'id' => $args['id']
@@ -138,7 +141,7 @@ $api->get('/matches/{id}', function ($request, $response, $args) {
 });
 
 $api->get('/matches/{id}/result', function ($request, $response, $args) {
-    $result = \App\Lib\DsManager\Models\Orm\MatchResult::complete()
+    $result = MatchResult::complete()
         ->where(
             [
                 'id' => $args['id']
@@ -152,46 +155,10 @@ $api->get('/matches/{id}/result', function ($request, $response, $args) {
 });
 
 $api->put('/matches/{id}/simulate', function ($request, $response, $args) {
-    $result = \App\Lib\DsManager\Models\Orm\MatchResult::complete()
-        ->where(
-            [
-                'id' => $args['id']
-            ]
-        )->first();
-
-    if (!empty($result) && !$result->simulated) {
-        //simulate match
-        $match = \App\Lib\DsManager\Models\Match::fromArray(
-            \App\Lib\DsManager\Models\Orm\Match::complete()
-                ->where(
-                    [
-                        'id' => $args['id']
-                    ]
-                )->first()->toArray()
-        );
-        $matchResult = $match->simulate()->toArray();
-        $result = \App\Lib\DsManager\Models\Orm\MatchResult::where(
-            [
-                'id' => $args['id']
-            ]
-        )->update(
-            \App\Lib\DsManager\Models\Orm\MatchResult::resolveAttributes(
-                $matchResult,
-                $args['id']
-            )
-        );
-        if ($result === 1) {
-            $result = \App\Lib\DsManager\Models\Orm\MatchResult::complete()
-                ->where(
-                    [
-                        'id' => $args['id']
-                    ]
-                )->first();
-        }
-
-    }
     return Responder::getJsonResponse(
-        $result,
+        MatchSimulator::simulate(
+            $args['id']
+        ),
         $response
     );
 });
