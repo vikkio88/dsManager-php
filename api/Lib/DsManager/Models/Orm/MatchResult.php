@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Lib\DsManager\Models\Orm;
+use App\Lib\DsManager\Helpers\Randomizer;
 
 /**
  * Class MatchResult
@@ -65,10 +66,10 @@ class MatchResult extends Match
                 'team_id' => $teamId,
                 'player_id' => $playerId
             ]
-        )->where('goals', '>', 0)->first();
+        )->first();
         if (!empty($scorer)) {
             $scorer->goals = $scorer->goals + 1;
-            $scorer->vote = $scorer->vote + rand(0, 1);
+            $scorer->vote = $scorer->vote <= 9 ? $scorer->vote + rand(0, 1) : $scorer->vote;
             $scorer->save();
         } else {
             MatchPlayer::create(
@@ -95,7 +96,7 @@ class MatchResult extends Match
                         'match_id' => $matchId,
                         'team_id' => $id,
                         'player_id' => $player->id,
-                        'vote' => rand(3, 7)
+                        'vote' => Randomizer::voteFromSkill($player->skillAvg)
                     ]
                 );
             }
