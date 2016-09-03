@@ -14,6 +14,10 @@ use App\Lib\DsManager\Models\Orm\MatchResult;
  */
 class MatchSimulator
 {
+    /**
+     * @param $roundId
+     * @return string
+     */
     public static function simulateRound($roundId)
     {
         $matches = Match::where(
@@ -34,52 +38,37 @@ class MatchSimulator
      */
     public static function simulateCompleteResult($matchId)
     {
-        $result = MatchResult::complete()->where(
-            [
-                'id' => $matchId
-            ]
-        )->first();
-
+        $result = self::getCompleteResult($matchId);
         if (!empty($result)
             && !$result->simulated
             && self::simulate($matchId) === 1
         ) {
-            $result = MatchResult::complete()
-                ->where(
-                    [
-                        'id' => $matchId
-                    ]
-                )->first();
+            $result = self::getCompleteResult($matchId);
         }
-
         return $result;
     }
 
-    public
-    static function simulateSimpleResult($matchId)
+    /**
+     * @param $matchId
+     * @return mixed
+     */
+    public static function simulateSimpleResult($matchId)
     {
-        $result = MatchResult::teams()->where(
-            [
-                'id' => $matchId
-            ]
-        )->first();
-
+        $result = self::getSimpleResult($matchId);
         if (!empty($result)
             && !$result->simulated
             && self::simulate($matchId) === 1
         ) {
-            $result = MatchResult::teams()
-                ->where(
-                    [
-                        'id' => $matchId
-                    ]
-                )->first();
+            $result = self::getSimpleResult($matchId);
         }
         return $result;
     }
 
-    private
-    static function simulate($matchId)
+    /**
+     * @param $matchId
+     * @return mixed
+     */
+    private static function simulate($matchId)
     {
         $match = \App\Lib\DsManager\Models\Match::fromArray(
             MatchOrm::complete()
@@ -102,4 +91,32 @@ class MatchSimulator
         );
         return $result;
     }
+
+
+    /**
+     * @param $matchId
+     * @return MatchResult
+     */
+    private static function getCompleteResult($matchId)
+    {
+        return MatchResult::complete()->where(
+            [
+                'id' => $matchId
+            ]
+        )->first();
+    }
+
+    /**
+     * @param $matchId
+     * @return MatchResult
+     */
+    private static function getSimpleResult($matchId)
+    {
+        return MatchResult::teams()->where(
+            [
+                'id' => $matchId
+            ]
+        )->first();
+    }
+
 }
