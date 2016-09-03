@@ -39,7 +39,7 @@ class Helpers extends \PHPUnit_Framework_TestCase
             ]
         )->get()->random(1);
         $this->assertNotEmpty($match);
-        $result = \App\Lib\DsManager\Helpers\MatchSimulator::simulate($match->id);
+        $result = \App\Lib\DsManager\Helpers\MatchSimulator::simulateCompleteResult($match->id);
         $this->assertNotEmpty($result);
         $match = \App\Lib\DsManager\Models\Orm\Match::where(
             [

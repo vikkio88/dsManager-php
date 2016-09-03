@@ -5,6 +5,7 @@ namespace App\Lib\DsManager\Helpers;
 
 
 use App\Lib\DsManager\Models\Orm\Match;
+use App\Lib\DsManager\Models\Orm\Match as MatchOrm;
 use App\Lib\DsManager\Models\Orm\MatchResult;
 
 /**
@@ -22,66 +23,83 @@ class MatchSimulator
         )->get();
         $result = [];
         foreach ($matches as $match) {
-            $result[] = self::simulate($match->id, false)->toArray();
+            $result[] = self::simulateSimpleResult($match->id)->toArray();
         }
-        return $result;
+        return json_encode($result);
     }
 
     /**
      * @param $matchId
-     * @param bool $completeResult
      * @return mixed
      */
-    public static function simulate($matchId, $completeResult = true)
+    public static function simulateCompleteResult($matchId)
     {
-        $result = MatchResult::complete()
-            ->where(
-                [
-                    'id' => $matchId
-                ]
-            )->first();
-        if (!empty($result) && !$result->simulated) {
-            //simulate match
-            $match = \App\Lib\DsManager\Models\Match::fromArray(
-                \App\Lib\DsManager\Models\Orm\Match::complete()
-                    ->where(
-                        [
-                            'id' => $matchId
-                        ]
-                    )->first()->toArray()
-            );
+        $result = MatchResult::complete()->where(
+            [
+                'id' => $matchId
+            ]
+        )->first();
 
-            $matchResult = $match->simulate()->toArray();
-
-            $result = MatchResult::where(
-                [
-                    'id' => $matchId
-                ]
-            )->update(
-                MatchResult::resolveAttributes(
-                    $matchResult,
-                    $matchId
-                )
-            );
-            if ($result === 1) {
-                if ($completeResult) {
-                    $result = MatchResult::complete()
-                        ->where(
-                            [
-                                'id' => $matchId
-                            ]
-                        )->first();
-                } else {
-                    $result = MatchResult::teams()
-                        ->where(
-                            [
-                                'id' => $matchId
-                            ]
-                        )->first();
-                }
-            }
-
+        if (!empty($result)
+            && !$result->simulated
+            && self::simulate($matchId) === 1
+        ) {
+            $result = MatchResult::complete()
+                ->where(
+                    [
+                        'id' => $matchId
+                    ]
+                )->first();
         }
+
+        return $result;
+    }
+
+    public
+    static function simulateSimpleResult($matchId)
+    {
+        $result = MatchResult::teams()->where(
+            [
+                'id' => $matchId
+            ]
+        )->first();
+
+        if (!empty($result)
+            && !$result->simulated
+            && self::simulate($matchId) === 1
+        ) {
+            $result = MatchResult::teams()
+                ->where(
+                    [
+                        'id' => $matchId
+                    ]
+                )->first();
+        }
+        return $result;
+    }
+
+    private
+    static function simulate($matchId)
+    {
+        $match = \App\Lib\DsManager\Models\Match::fromArray(
+            MatchOrm::complete()
+                ->where(
+                    [
+                        'id' => $matchId
+                    ]
+                )->first()->toArray()
+        );
+        $matchResult = $match->simulate()->toArray();
+        $result = MatchResult::where(
+            [
+                'id' => $matchId
+            ]
+        )->update(
+            MatchResult::resolveAttributes(
+                $matchResult,
+                $matchId
+            )
+        );
         return $result;
     }
 }

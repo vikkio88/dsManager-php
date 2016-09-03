@@ -126,6 +126,7 @@ $api->get('/leagues/{id}', function ($request, $response, $args) {
         $response
     );
 });
+
 $api->get('/leagues/{id}/rounds/{roundId}/matches', function ($request, $response, $args) {
     return Responder::getJsonResponse(
         Match::teams()
@@ -137,6 +138,16 @@ $api->get('/leagues/{id}/rounds/{roundId}/matches', function ($request, $respons
         $response
     );
 });
+
+$api->put('/leagues/{id}/rounds/{roundId}/simulate', function ($request, $response, $args) {
+    return Responder::getJsonResponse(
+        MatchSimulator::simulateRound(
+            $args['roundId']
+        ),
+        $response
+    );
+});
+
 $api->get('/matches', function ($request, $response, $args) {
     return Responder::getJsonResponse(
         Match::teams()->get(),
@@ -183,7 +194,7 @@ $api->get('/matches/{id}/result', function ($request, $response, $args) {
 
 $api->put('/matches/{id}/simulate', function ($request, $response, $args) {
     return Responder::getJsonResponse(
-        MatchSimulator::simulate(
+        MatchSimulator::simulateCompleteResult(
             $args['id']
         ),
         $response
