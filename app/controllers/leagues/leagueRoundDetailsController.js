@@ -17,15 +17,15 @@
         )
         {
             var vm = this;
-            vm.matches = [];
+            vm.round = {};
 
             Common.Get
             (
-                "leagues/"+$stateParams.leagueId+"/rounds/"+$stateParams.roundId+"/matches"
+                "leagues/"+$stateParams.leagueId+"/rounds/"+$stateParams.roundId
             ).then(
                 function(data){
                     if(Common.isDebug()) console.log(data.data);
-                    vm.matches = data.data;
+                    vm.round = data.data;
                 },
                 function(data){
                     console.log(data);

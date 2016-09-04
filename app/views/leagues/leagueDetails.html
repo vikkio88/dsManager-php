@@ -40,10 +40,10 @@
         </thead>
         <tr data-ng-repeat="round in vm.league.rounds">
             <td><a data-ui-sref="roundOne({ leagueId: vm.league.id, roundId: round.id })">#</a></td>
-            <td><a data-ui-sref="roundOne({ leagueId: vm.league.id, roundId: round.id })">{{ round.day }}</a></td>
+            <td><a data-ui-sref="roundOne({ leagueId: vm.league.id, roundId: round.id })">Round Day #{{ round.day }}</a></td>
             <td>
-                <span ng-show="match.simulated" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                <span ng-hide="match.simulated" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span ng-show="round.simulated" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <span ng-hide="round.simulated" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </td>
         </tr>
     </table>

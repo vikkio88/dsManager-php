@@ -4,6 +4,7 @@
 namespace App\Lib\DsManager\Helpers;
 
 
+use App\Lib\DsManager\Models\Orm\LeagueRound;
 use App\Lib\DsManager\Models\Orm\Match;
 use App\Lib\DsManager\Models\Orm\Match as MatchOrm;
 use App\Lib\DsManager\Models\Orm\MatchResult;
@@ -20,16 +21,23 @@ class MatchSimulator
      */
     public static function simulateRound($roundId)
     {
-        $matches = Match::where(
-            [
-                'league_round_id' => $roundId
-            ]
-        )->get();
-        $result = [];
-        foreach ($matches as $match) {
-            $result[] = self::simulateSimpleResult($match->id)->toArray();
+        $result = self::getCompleteRound($roundId);
+        if (!empty($result)
+            &&
+            !$result->simulated
+        ) {
+            $matches = Match::where(
+                [
+                    'league_round_id' => $roundId
+                ]
+            )->get();
+            foreach ($matches as $match) {
+                self::simulateSimpleResult($match->id)->toArray();
+            }
+            LeagueRound::find($roundId)->update(['simulated' => true]);
+            $result = self::getCompleteRound($roundId);
         }
-        return json_encode($result);
+        return $result;
     }
 
     /**
@@ -115,6 +123,19 @@ class MatchSimulator
         return MatchResult::teams()->where(
             [
                 'id' => $matchId
+            ]
+        )->first();
+    }
+
+    /**
+     * @param $roundId
+     * @return mixed
+     */
+    private static function getCompleteRound($roundId)
+    {
+        return LeagueRound::complete()->where(
+            [
+                'id' => $roundId
             ]
         )->first();
     }

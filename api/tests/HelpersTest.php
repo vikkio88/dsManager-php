@@ -73,6 +73,9 @@ class Helpers extends \PHPUnit_Framework_TestCase
             ]
         )->first();
         $this->assertNotEmpty($match);
+        $round = \App\Lib\DsManager\Models\Orm\LeagueRound::find($match->league_round_id);
+        $this->assertNotEmpty($round);
+        $this->assertTrue($round->simulated);
     }
 
 }

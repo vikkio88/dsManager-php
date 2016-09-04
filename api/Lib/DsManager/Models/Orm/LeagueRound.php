@@ -19,7 +19,15 @@ class LeagueRound extends DsManagerOrm
      */
     protected $fillable = [
         'league_id',
-        'day'
+        'day',
+        'simulated'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'simulated' => 'boolean'
     ];
 
     /**
@@ -27,7 +35,7 @@ class LeagueRound extends DsManagerOrm
      */
     public function league()
     {
-        return $this->hasOne(League::class);
+        return $this->belongsTo(League::class);
     }
 
     /**
@@ -36,5 +44,19 @@ class LeagueRound extends DsManagerOrm
     public function matches()
     {
         return $this->hasMany(Match::class);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeComplete($query)
+    {
+        return $query->with(
+            'league',
+            'matches',
+            'matches.homeTeam',
+            'matches.AwayTeam'
+        );
     }
 }

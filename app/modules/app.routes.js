@@ -111,9 +111,20 @@
                         )
                         .state("roundOne",
                             {
-                                url:"/leagues/:leagueId/rounds/:roundId/matches",
+                                url:"/leagues/:leagueId/rounds/:roundId",
                                 templateUrl: "app/views/leagues/leagueRoundDetails.html",
                                 controller: "LeagueRoundDetailsController as vm",
+                                ncyBreadcrumb: {
+                                    parent: 'leagueOne',
+                                    label: 'Round Details'
+                                }
+                            }
+                        )
+                        .state("simulateRound",
+                            {
+                                url:"/leagues/:leagueId/rounds/:roundId/simulated",
+                                templateUrl: "app/views/leagues/leagueRoundDetails.html",
+                                controller: "SimulateLeagueRoundController as vm",
                                 ncyBreadcrumb: {
                                     parent: 'leagueOne',
                                     label: 'Round Details'

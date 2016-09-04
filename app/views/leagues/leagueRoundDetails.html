@@ -1,7 +1,29 @@
 <div class="panel panel-default">
     <div class="panel-heading">Round Matches</div>
     <div class="panel-body">
-        <div data-textfilterfull></div>
+        <div class="row">
+            <div class="col-md-3 col-lg-3" align="center">
+                <h1>{{ vm.round.league.name | capitalize }}</h1>
+                <h2> Match Day # {{ vm.round.day }}</h2>
+            </div>
+            <div class="col-md-9 col-lg-9">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Round:</td>
+                        <td>
+                            {{ vm.round.day }} / {{(vm.round.league.teams - 1)}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <table class="table table-striped">
         <thead>
@@ -11,7 +33,7 @@
         <th>Score</th>
         <th>Simulated</th>
         </thead>
-        <tr data-ng-repeat="match in vm.matches | filter:searchText">
+        <tr data-ng-repeat="match in vm.round.matches | filter:searchText">
             <td><a data-ui-sref="matchOne({ matchId: match.id })">#</a></td>
             <td><a data-ui-sref="teamOne({ teamId: match.home_team.id })">{{ match.home_team.name| capitalize }}</a>
             </td>
@@ -26,10 +48,10 @@
     </table>
 
     <div class="pull-right">
-        <a data-ui-sref="createMatch()">
-            <button type="button" class="btn btn-default btn-lg">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Simulate Round
-            </button>
-        </a>
-    </div>
+    <a data-ui-sref="simulateRound({ leagueId:vm.round.league.id, roundId: vm.round.id })">
+        <button ng-hide="vm.round.simulated" type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Simulate Round
+        </button>
+    </a>
+</div>
 </div>

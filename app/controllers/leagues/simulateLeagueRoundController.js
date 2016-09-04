@@ -17,7 +17,7 @@
         )
         {
             var vm = this;
-            vm.matches = [];
+            vm.round = {};
 
             Common.Put
             (
@@ -25,7 +25,7 @@
             ).then(
                 function(data){
                     if(Common.isDebug()) console.log(data.data);
-                    vm.matches = data.data;
+                    vm.round = data.data;
                 },
                 function(data){
                     console.log(data);

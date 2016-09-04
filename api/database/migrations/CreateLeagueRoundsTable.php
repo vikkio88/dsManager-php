@@ -16,6 +16,7 @@ class CreateLeagueRoundsTable
         Capsule::schema()->create('league_rounds', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('league_id');
+            $table->boolean('simulated')->default(false);
             $table->integer('day')->default(0);
             $table->timestamps();
         });
