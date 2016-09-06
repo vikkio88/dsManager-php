@@ -17,11 +17,11 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "angularjs#~1.4.7",
-    "angular-ui-router": "~0.2.15",
-    "angular-busy": "~4.1.3",
-    "angular-breadcrumb": "~0.4.1",
-    "bootstrap": "~3.3.5",
-    "world-flags-sprite": "*"
+    "angular": "~1.5.8",
+    "angular-ui-router": "*",
+    "angular-breadcrumb": "*",
+    "bootstrap": "*",
+    "world-flags-sprite": "*",
+    "angular-resource": "^1.5.8"
   }
 }
