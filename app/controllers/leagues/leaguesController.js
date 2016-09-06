@@ -1,37 +1,31 @@
-(
-    function() {
-        "use strict";
+(function () {
+    "use strict";
 
-        angular.module("DsManager")
-            .controller(
-                "LeaguesController",
-                [
-                    "Common",
-                    "$stateParams",
-                    LeaguesController
-                ]);
+    angular.module("DsManager")
+        .controller(
+            "LeaguesController",
+            [
+                "Common",
+                "$stateParams",
+                LeaguesController
+            ]);
 
-        function LeaguesController(
-            Common,
-            $stateParams
-        )
-        {
-            var vm = this;
-            vm.leagues = [];
+    function LeaguesController(Common, $stateParams) {
+        var vm = this;
+        vm.leagues = [];
 
-            Common.Get
-            (
-                "leagues"
-            ).then(
-               function(data){
-                    if(Common.isDebug()) console.log(data.data);
-                    vm.leagues = data.data;
-                },
-                function(data){
-                    console.log(data);
-                }
-            );
-        }
-
+        Common.Get
+        (
+            "leagues"
+        ).then(
+            function (data) {
+                if (Common.isDebug()) console.log(data.data);
+                vm.leagues = data.data;
+            },
+            function (data) {
+                console.log(data);
+            }
+        );
     }
-)();
+
+})();

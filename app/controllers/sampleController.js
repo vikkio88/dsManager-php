@@ -1,5 +1,4 @@
-(
-    function() {
+(function () {
         "use strict";
 
         angular.module("DsManager")
@@ -12,12 +11,9 @@
                     SampleController
                 ]);
 
-        function SampleController(
-            Common,
-            $scope,
-            $stateParams
-        )
-        {
+        function SampleController(Common,
+                                  $scope,
+                                  $stateParams) {
             var vm = this;
             vm.stuff = null;
 
@@ -25,15 +21,14 @@
             (
                 "ping"
             ).then(
-               function(data){
-                    if(Common.isDebug()) console.log(data.data);
+                function (data) {
+                    if (Common.isDebug()) console.log(data.data);
                     vm.stuff = data.data;
                 },
-                function(data){
+                function (data) {
                     console.log(data);
                 }
             );
         }
 
-    }
-)();
+    })();

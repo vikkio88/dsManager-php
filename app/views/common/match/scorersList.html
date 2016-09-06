@@ -9,10 +9,10 @@
         <td></td>
         <td>
             <a ui-sref="playerOneFromTeam({teamId: teamId, playerId: scorer.id })">
-                {{ scorer.name| capitalize }} {{scorer.surname| capitalize }}
+                {{ ::scorer.name| capitalize }} {{::scorer.surname| capitalize }}
             </a>
         </td>
-        <td>{{ scorer.role }}</td>
-        <td>{{ scorer.pivot.goals }}</td>
+        <td>{{ ::scorer.role }}</td>
+        <td>{{ ::scorer.pivot.goals }}</td>
     </tr>
 </table>

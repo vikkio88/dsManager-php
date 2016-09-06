@@ -5,18 +5,18 @@
     );
     // Functional
     directives.directive('eatClickIf', ['$parse', '$rootScope',
-        function($parse, $rootScope) {
+        function ($parse, $rootScope) {
             return {
                 // this ensure eatClickIf be compiled before ngClick
                 priority: 100,
                 restrict: 'A',
-                compile: function($element, attr) {
+                compile: function ($element, attr) {
                     var fn = $parse(attr.eatClickIf);
                     return {
                         pre: function link(scope, element) {
                             var eventName = 'click';
-                            element.on(eventName, function(event) {
-                                var callback = function() {
+                            element.on(eventName, function (event) {
+                                var callback = function () {
                                     if (fn(scope, {$event: event})) {
                                         // prevents ng-click to be executed
                                         event.stopImmediatePropagation();
@@ -32,7 +32,8 @@
                                 }
                             });
                         },
-                        post: function() {}
+                        post: function () {
+                        }
                     }
                 }
             }
@@ -52,7 +53,7 @@
             restrict: 'AE',
             replace: false,
             scope: {
-                innerText:"=innerText"
+                innerText: "=innerText"
             },
             templateUrl: 'app/views/common/textfilterfull.html'
         }
@@ -66,28 +67,28 @@
     });
     // Common
     directives.directive('flagIcon', function () {
-       return {
-           restrict: 'AE',
-           replace: false,
-           scope: {
-               nationality:"=nationality"
-           },
-           templateUrl: 'app/views/common/shared/flagIcon.html'
-       }
+        return {
+            restrict: 'AE',
+            replace: false,
+            scope: {
+                nationality: "=nationality"
+            },
+            templateUrl: 'app/views/common/shared/flagIcon.html'
+        }
     });
     directives.directive('defaultPersonPic', function () {
-       return {
-           restrict: 'AE',
-           replace: false,
-           templateUrl: 'app/views/common/shared/defaultPersonPic.html'
-       }
+        return {
+            restrict: 'AE',
+            replace: false,
+            templateUrl: 'app/views/common/shared/defaultPersonPic.html'
+        }
     });
     directives.directive('defaultTeamIcon', function () {
-       return {
-           restrict: 'AE',
-           replace: false,
-           templateUrl: 'app/views/common/shared/defaultTeamIcon.html'
-       }
+        return {
+            restrict: 'AE',
+            replace: false,
+            templateUrl: 'app/views/common/shared/defaultTeamIcon.html'
+        }
     });
 
     // Template directives
@@ -95,8 +96,8 @@
             return {
                 restrict: 'AE',
                 replace: false,
-                scope:{
-                    team : '=team'
+                scope: {
+                    team: '=team'
                 },
                 templateUrl: 'app/views/common/team/singleTeamH2.html'
             }
@@ -107,9 +108,9 @@
             return {
                 restrict: 'AE',
                 replace: false,
-                scope:{
-                    scorers : '=scorers',
-                    teamId : '=teamId'
+                scope: {
+                    scorers: '=scorers',
+                    teamId: '=teamId'
                 },
                 templateUrl: 'app/views/common/match/scorersList.html'
             }
@@ -120,8 +121,8 @@
             return {
                 restrict: 'AE',
                 replace: false,
-                scope:{
-                    team : '=team'
+                scope: {
+                    team: '=team'
                 },
                 templateUrl: 'app/views/common/team/teamCompleteRoster.html'
             }
@@ -132,8 +133,8 @@
             return {
                 restrict: 'AE',
                 replace: false,
-                scope:{
-                    team : '=team'
+                scope: {
+                    team: '=team'
                 },
                 templateUrl: 'app/views/common/team/teamSmallRoster.html'
             }
