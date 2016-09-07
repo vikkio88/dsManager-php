@@ -7,7 +7,8 @@
             "app.common",
             "app.directives",
             "app.services",
-            "app.filters"
+            "app.filters",
+            "ngAnimate"
         ]
     );
 })();
