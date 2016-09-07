@@ -25,6 +25,11 @@ class MatchPlayer extends DsManagerOrm
         'vote'
     ];
 
+    protected $casts = [
+        'vote' => 'integer',
+        'goals' => 'integer'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

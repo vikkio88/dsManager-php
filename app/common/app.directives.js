@@ -53,7 +53,8 @@
             restrict: 'AE',
             replace: false,
             scope: {
-                innerText: "=innerText"
+                innerText: "@",
+                searchText: "=searchText"
             },
             templateUrl: 'app/views/common/textfilterfull.html'
         }
@@ -104,6 +105,18 @@
         }
     );
 
+    directives.directive('singleTeamMatchesTable', function () {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    matches: '=matches',
+                    description: '@'
+                },
+                templateUrl: 'app/views/common/team/singleTeamMatchesTable.html'
+            }
+        }
+    );
     directives.directive('scorersList', function () {
             return {
                 restrict: 'AE',

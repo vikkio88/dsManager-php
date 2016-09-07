@@ -1,0 +1,36 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>{{description}}</th>
+    </tr>
+    <tr>
+        <th>#</th>
+        <th>Opponent</th>
+        <th>Nationality</th>
+        <th>Result</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="match in matches">
+
+        <td>
+            <a ui-sref="matchOne({matchId:match.id})">
+                #
+            </a>
+        </td>
+        <td ng-model="opponent" ng-init="opponent=match.away_team === undefined? match.home_team:match.away_team">
+            <a ui-sref="teamOne({teamId:opponent.id})">
+                {{opponent.name}}
+            </a>
+        </td>
+        <td>
+            <span flag-icon nationality="opponent.nationality"></span>
+        </td>
+        <td>
+            <a ui-sref="matchOne({matchId:match.id})">
+                {{match.goal_home}} - {{match.goal_away}}
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>

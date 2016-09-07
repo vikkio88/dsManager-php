@@ -1,39 +1,56 @@
-<div data-cg-busy="Promessa">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2 class="panel-title">Team Details</h2>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-3 col-lg-3" align="center">
-                    <h1>{{ vm.team.name | capitalize }} <span flag-icon nationality="vm.team.nationality"></span></h1>
-                    <br>
-                    <span default-team-icon></span>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">Team Details</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 col-lg-3" align="center">
+                <h1>{{ vm.team.name | capitalize }} <span flag-icon nationality="vm.team.nationality"></span></h1>
+                <br>
+                <span default-team-icon></span>
 
-                </div>
-                <div class="col-md-9 col-lg-9">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Staff</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <td>Coach:</td>
-                        <td>
-                            <a data-ui-sref="coachOneFromTeam({ teamId: vm.team.id, coachId: vm.team.coach.id })">
-                                {{vm.team.coach.name|capitalize }} {{ vm.team.coach.surname|capitalize }}</a>
-                        </td>
-                        <td>
-                            <span flag-icon nationality="vm.team.coach.nationality"></span>
-                        </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
-            <h3>Players Roster</h3>
-            <div team-complete-roster team="vm.team"></div>
+            <div class="col-md-9 col-lg-9">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Staff</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td>Coach:</td>
+                    <td>
+                        <a data-ui-sref="coachOneFromTeam({ teamId: vm.team.id, coachId: vm.team.coach.id })">
+                            {{vm.team.coach.name|capitalize }} {{ vm.team.coach.surname|capitalize }}</a>
+                    </td>
+                    <td>
+                        <span flag-icon nationality="vm.team.coach.nationality"></span>
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </div>
+    <div class="panel-heading">
+        <h2 class="panel-title">Matches</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-lg-6" align="center">
+                <div single-team-matches-table description="Played Home" matches="vm.team.played_matches_home"></div>
+                <div single-team-matches-table description="Played Away" matches="vm.team.played_matches_away"></div>
+            </div>
+            <div class="col-md-6 col-lg-6" align="center">
+                <div single-team-matches-table description="Future Home" matches="vm.team.future_matches_home"></div>
+                <div single-team-matches-table description="Future Away" matches="vm.team.future_matches_away"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-heading">
+        <h2 class="panel-title">Players Roster</h2>
+    </div>
+    <div class="panel-body">
+        <div team-complete-roster team="vm.team"></div>
     </div>
 </div>

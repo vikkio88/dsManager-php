@@ -135,7 +135,7 @@ class MatchResult extends Match
             'team_id',
             'goals'
         )->where(
-            'goals', ' > ', 0
+            'goals', '>', 0
         );
     }
 
