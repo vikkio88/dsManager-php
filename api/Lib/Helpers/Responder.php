@@ -18,7 +18,11 @@ class Responder
     public static function getJsonResponse($content, $response, $headers = [])
     {
         $headers['Content-Type'] = 'application/json';
-        return self::getResponse($headers, $content, $response);
+        return self::getResponse(
+            $headers,
+            $content,
+            $response
+        );
     }
 
     /**

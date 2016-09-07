@@ -118,4 +118,22 @@ class Team extends DsManagerOrm
         );
     }
 
+    /**
+     * @return array
+     */
+    public static function getBest()
+    {
+        $result = Match::selectRaw('winner_id as id, COUNT(*) as won')
+            ->whereNotNull('winner_id')->where('winner_id', '!=', 0)
+            ->orderByRaw('COUNT(*) DESC')->groupBy('winner_id')
+            ->take(20)->get()->keyBy('id')->toArray();
+        $teams = Team::whereIn('id', array_keys($result))->get()->toArray();
+        $result = array_map(function ($team) use ($result) {
+            $team['stats'] = $result[$team['id']];
+            return $team;
+        }, $teams);
+
+        return $result;
+    }
+
 }

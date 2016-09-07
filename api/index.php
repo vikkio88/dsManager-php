@@ -32,15 +32,12 @@ $api->get('/ping', function ($request, $response, $args) {
     return Responder::getJsonResponse($jsonResp, $response);
 });
 
-$api->get('/players', function ($request, $response, $args) {
-    $json = json_encode(Player::all());
-    return Responder::getJsonResponse($json, $response);
-});
-
-
-$api->get('/players/{id}', function ($request, $response, $args) {
+$api->get('/statistics', function ($request, $response, $args) {
     return Responder::getJsonResponse(
-        Player::findOrFail($args['id']),
+        json_encode([
+            'players' => Player::getBest(),
+            'teams' => Team::getBest()
+        ]),
         $response
     );
 });
