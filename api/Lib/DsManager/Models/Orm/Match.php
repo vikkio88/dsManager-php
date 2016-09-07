@@ -31,7 +31,9 @@ class Match extends DsManagerOrm
         'away_team_id',
         'created_at',
         'updated_at',
-        'info'
+        'winner_id',
+        'loser_id',
+        'is_draw',
     ];
 
     /**

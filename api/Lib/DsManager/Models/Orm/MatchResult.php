@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Lib\DsManager\Models\Orm;
+
 use App\Lib\DsManager\Helpers\Randomizer;
 
 /**
@@ -15,13 +16,18 @@ class MatchResult extends Match
     protected $fillable = [
         'goal_home',
         'goal_away',
-        'info',
-        'simulated'
+        'simulated',
+        'winner_id',
+        'loser_id',
+        'is_draw'
     ];
 
     protected $hidden = [
         'home_team_id',
         'away_team_id',
+        'winner_id',
+        'loser_id',
+        'is_draw',
         'created_at',
         'updated_at'
     ];
@@ -30,7 +36,6 @@ class MatchResult extends Match
      * @var array
      */
     protected $casts = [
-        'info' => 'json',
         'simulated' => 'boolean'
     ];
 
@@ -43,6 +48,7 @@ class MatchResult extends Match
             ],
             $matchId
         );
+        $attributes = self::setResult($attributes);
         if (array_key_exists('info', $attributes)) {
             if (array_key_exists('scorers', $attributes['info'])) {
                 foreach ($attributes['info']['scorers']['home'] as $scorerHome) {
@@ -53,8 +59,8 @@ class MatchResult extends Match
                 }
                 unset($attributes['info']['scorers']);
             }
-            $attributes['info'] = json_encode($attributes['info']);
         }
+        unset($attributes['info']);
         return $attributes;
     }
 
@@ -103,6 +109,22 @@ class MatchResult extends Match
         }
     }
 
+    private static function setResult($attributes)
+    {
+        $toExtract = [
+            'winner_id' => 'winner_id',
+            'loser_id' => 'loser_id',
+            'is_draw' => 'is_draw'
+        ];
+        if (array_key_exists('info', $attributes)) {
+            foreach ($toExtract as $key => $attr) {
+                $attributes[$attr] = $attributes['info'][$key];
+                unset($attributes['info'][$key]);
+            }
+        }
+        return $attributes;
+    }
+
     public function scorers()
     {
         return $this->belongsToMany(
@@ -113,7 +135,7 @@ class MatchResult extends Match
             'team_id',
             'goals'
         )->where(
-            'goals', '>', 0
+            'goals', ' > ', 0
         );
     }
 
