@@ -9,6 +9,14 @@ namespace App\Lib\DsManager\Models\Orm;
 class Team extends DsManagerOrm
 {
     /**
+     *
+     */
+    const PLAYED_LIMIT = 5;
+    /**
+     *
+     */
+    const FUTURE_LIMIT = 3;
+    /**
      * @var string
      */
     protected $table = 'teams';
@@ -38,6 +46,59 @@ class Team extends DsManagerOrm
     }
 
     /**
+     * @return mixed
+     */
+    public function playedMatchesHome()
+    {
+        return $this->hasMany(
+            MatchResult::class,
+            'home_team_id'
+        )->where('simulated', true)
+            ->orderBy('updated_at', 'DESC')
+            ->limit(self::PLAYED_LIMIT);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function futureMatchesHome()
+    {
+        return $this->hasMany(
+            MatchResult::class,
+            'home_team_id'
+        )->where('simulated', false)
+            ->orderBy('updated_at', 'DESC')
+            ->limit(self::FUTURE_LIMIT);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function playedMatchesAway()
+    {
+        return $this->hasMany(
+            MatchResult::class,
+            'away_team_id'
+        )->where('simulated', true)
+            ->orderBy('updated_at', 'DESC')
+            ->limit(self::PLAYED_LIMIT);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function futureMatchesAway()
+    {
+        return $this->hasMany(
+            MatchResult::class,
+            'away_team_id'
+        )->where('simulated', false)
+            ->orderBy('updated_at', 'DESC')
+            ->limit(self::FUTURE_LIMIT);
+    }
+
+
+    /**
      * @param $query
      * @return mixed
      */
@@ -45,7 +106,15 @@ class Team extends DsManagerOrm
     {
         return $query->with(
             'roster',
-            'coach'
+            'coach',
+            'playedMatchesHome',
+            'playedMatchesHome.awayTeam',
+            'futureMatchesHome',
+            'futureMatchesHome.awayTeam',
+            'playedMatchesAway',
+            'playedMatchesAway.homeTeam',
+            'futureMatchesAway',
+            'futureMatchesAway.homeTeam'
         );
     }
 
