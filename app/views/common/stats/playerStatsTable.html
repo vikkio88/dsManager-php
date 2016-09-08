@@ -1,16 +1,29 @@
-<table class="table">
+<table class="table" ng-model="orderByField" ng-model="reverseSort" ng-init="orderByField='goals'"
+       ng-init="reverseSort=true">
     <thead>
-        <th>#</th>
-        <th>Name</th>
-        <th>Nationality</th>
-        <th>Role</th>
-        <th>Team</th>
-        <th>Appearances</th>
-        <th>Goals</th>
-        <th>Avg</th>
+    <th>#</th>
+    <th>Name</th>
+    <th>Nationality</th>
+    <th>Role</th>
+    <th>Team</th>
+    <th>
+        <a data-ng-click="orderByField='appearances'; reverseSort = !reverseSort">
+            Appearances
+        </a>
+    </th>
+    <th>
+        <a data-ng-click="orderByField='goals'; reverseSort = !reverseSort">
+            Goals
+        </a>
+    </th>
+    <th>
+        <a data-ng-click="orderByField='avg'; reverseSort = !reverseSort">
+            Avg
+        </a>
+    </th>
     </thead>
     <tbody>
-    <tr data-ng-repeat="player in players">
+    <tr data-ng-repeat="player in players | orderBy:orderByField:reverseSort">
         <td></td>
         <td>
             <a ui-sref="playerOneFromTeam({teamId: player.team.id, playerId: player.id })">
@@ -26,9 +39,9 @@
                 {{ ::player.team.name }}
             </a>
         </td>
-        <td>{{ ::player.stats.goals }}</td>
-        <td>{{ ::player.stats.appearances }}</td>
-        <td>{{ ::player.stats.avg | number:2 }}</td>
+        <td>{{ ::player.goals }}</td>
+        <td>{{ ::player.appearances }}</td>
+        <td>{{ ::player.avg | number:2 }}</td>
     </tr>
     </tbody>
 </table>

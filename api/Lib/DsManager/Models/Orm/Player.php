@@ -109,8 +109,7 @@ class Player extends DsManagerOrm
             ->groupBy('player_id')->take(self::PLAYER_STATS_LIMIT)->get()->keyBy('player_id')->toArray();
         $players = Player::with('team')->whereIn('id', array_keys($result))->get()->toArray();
         $result = array_map(function ($player) use ($result) {
-            $player['stats'] = $result[$player['id']];
-            return $player;
+            return array_merge($player,$result[$player['id']]);
         }, $players);
         return $result;
     }

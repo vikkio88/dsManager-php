@@ -3,11 +3,15 @@
     <th>#</th>
     <th>Team</th>
     <th>Nationality</th>
-    <th><a data-ng-click="reverseSort = !reverseSort">Won Matches</a></th>
+    <th>
+        <a data-ng-click="reverseSort = !reverseSort">
+            Won Matches
+        </a>
+    </th>
     </thead>
     <tbody>
 
-    <tr data-ng-repeat="team in teams | orderBy: team.stats.won :reverseSort">
+    <tr data-ng-repeat="team in teams | orderBy: 'won' :reverseSort">
         <td></td>
         <td>
             <a ui-sref="teamOne({teamId: team.id})">
@@ -17,7 +21,7 @@
         <td>
             <span flag-icon nationality="team.nationality"></span>
         </td>
-        <td>{{ ::team.stats.won | number }}</td>
+        <td>{{ ::team.won | number }}</td>
     </tr>
     </tbody>
 </table>

@@ -15,6 +15,13 @@
                             <h2><a data-ui-sref="teamOne({ teamId: vm.match.away_team.id})">{{ vm.match.away_team.name | capitalize }}</a></h2> <h1>{{ vm.match.goal_away }} </h1>
                             <div ng-show="vm.match.simulated" scorers-list scorers="vm.match.scorers" team-id="vm.match.away_team.id"></div>
                         </div>
+                        <div class="pull-right">
+                            <a data-ui-sref="simulateMatch({ matchId: vm.match.id })">
+                                <button ng-hide="vm.match.simulated"  type="button" class="btn btn-default btn-lg">
+                                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Simulate Match
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

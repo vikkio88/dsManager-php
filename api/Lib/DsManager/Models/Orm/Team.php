@@ -135,8 +135,8 @@ class Team extends DsManagerOrm
             ->take(self::TEAM_STATS_LIMIT)->get()->keyBy('winner_id')->toArray();
         $teams = Team::whereIn('id', array_keys($result))->get()->toArray();
         $result = array_map(function ($team) use ($result) {
-            $team['stats'] = $result[$team['id']];
-            return $team;
+            return array_merge($team, $result[$team['id']]);
+
         }, $teams);
 
         return $result;
