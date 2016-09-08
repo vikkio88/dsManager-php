@@ -102,7 +102,7 @@ class Player extends DsManagerOrm
         )->where('goals', '>', 0)
             ->orderByRaw('SUM(goals) DESC,COUNT(*) DESC')
             ->groupBy('player_id')->take(20)->get()->keyBy('player_id')->toArray();
-        $players = Player::whereIn('id', array_keys($result))->get()->toArray();
+        $players = Player::with('team')->whereIn('id', array_keys($result))->get()->toArray();
         $result = array_map(function ($player) use ($result) {
             $player['stats'] = $result[$player['id']];
             return $player;

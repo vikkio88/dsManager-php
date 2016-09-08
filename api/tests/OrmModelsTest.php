@@ -105,4 +105,25 @@ class OrmModelsTest extends \PHPUnit_Framework_TestCase
         $match = \App\Lib\DsManager\Models\Match::fromArray($matchNew->toArray());
         $this->assertNotNull($match);
     }
+
+    /**
+     * @group Stats
+     */
+    public function testGetStats()
+    {
+        $match = \App\Lib\DsManager\Models\Orm\Match::where(
+            [
+                'simulated' => false
+            ]
+        )->whereNotNull(
+            'league_round_id'
+        )->get()->random(1);
+        $this->assertNotEmpty($match);
+        $result = \App\Lib\DsManager\Helpers\MatchSimulator::simulateRound($match->league_round_id);
+        $this->assertNotEmpty($result);
+        $players = \App\Lib\DsManager\Models\Orm\Player::getBest();
+        $this->assertNotEmpty($players);
+        $teams = \App\Lib\DsManager\Models\Orm\Team::getBest();
+        $this->assertNotEmpty($teams);
+    }
 }
