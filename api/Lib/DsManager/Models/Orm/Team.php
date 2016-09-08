@@ -16,6 +16,12 @@ class Team extends DsManagerOrm
      *
      */
     const FUTURE_LIMIT = 3;
+
+    /**
+     *
+     */
+    const TEAM_STATS_LIMIT = 5;
+
     /**
      * @var string
      */
@@ -123,10 +129,10 @@ class Team extends DsManagerOrm
      */
     public static function getBest()
     {
-        $result = Match::selectRaw('winner_id as id, COUNT(*) as won')
+        $result = Match::selectRaw('winner_id, COUNT(*) as won')
             ->whereNotNull('winner_id')->where('winner_id', '!=', 0)
             ->orderByRaw('COUNT(*) DESC')->groupBy('winner_id')
-            ->take(20)->get()->keyBy('id')->toArray();
+            ->take(self::TEAM_STATS_LIMIT)->get()->keyBy('winner_id')->toArray();
         $teams = Team::whereIn('id', array_keys($result))->get()->toArray();
         $result = array_map(function ($team) use ($result) {
             $team['stats'] = $result[$team['id']];

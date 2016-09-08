@@ -8,6 +8,11 @@ namespace App\Lib\DsManager\Models\Orm;
  */
 class Player extends DsManagerOrm
 {
+    /**
+     *
+     */
+    const PLAYER_STATS_LIMIT = 5;
+
 
     /**
      * @var string
@@ -98,10 +103,10 @@ class Player extends DsManagerOrm
     public static function getBest()
     {
         $result = MatchPlayer::selectRaw(
-            'player_id, COUNT(*) as appearances ,AVG(vote) avg, SUM(goals) goals'
+            'player_id, COUNT(*) as appearances , AVG(vote) avg, SUM(goals) goals'
         )->where('goals', '>', 0)
             ->orderByRaw('SUM(goals) DESC,COUNT(*) DESC')
-            ->groupBy('player_id')->take(20)->get()->keyBy('player_id')->toArray();
+            ->groupBy('player_id')->take(self::PLAYER_STATS_LIMIT)->get()->keyBy('player_id')->toArray();
         $players = Player::with('team')->whereIn('id', array_keys($result))->get()->toArray();
         $result = array_map(function ($player) use ($result) {
             $player['stats'] = $result[$player['id']];

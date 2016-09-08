@@ -26,7 +26,7 @@
                 //Hashbang
                 $locationProvider.hashPrefix("!");
 
-                $urlRouterProvider.otherwise("/teams");
+                $urlRouterProvider.otherwise("/stats");
 
                 $stateProvider
                 //Ping
@@ -40,7 +40,16 @@
                             }
                         }
                     )
-                    //Teams
+                    .state("stats",
+                        {
+                            url: "/stats",
+                            templateUrl: "app/views/dashboard/dash.html",
+                            controller: "StatsController as vm",
+                            ncyBreadcrumb: {
+                                label: 'Stats'
+                            }
+                        }
+                    )
                     .state("teams",
                         {
                             url: "/teams",

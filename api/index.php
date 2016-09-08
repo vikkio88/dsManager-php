@@ -37,7 +37,7 @@ $api->get('/statistics', function ($request, $response, $args) {
         json_encode([
             'players' => Player::getBest(),
             'teams' => Team::getBest()
-        ]),
+        ],JSON_NUMERIC_CHECK),
         $response
     );
 });

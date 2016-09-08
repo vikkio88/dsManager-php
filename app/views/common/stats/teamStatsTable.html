@@ -1,0 +1,23 @@
+<table class="table" ng-model="reverseSort" ng-init="reverseSort=true">
+    <thead>
+    <th>#</th>
+    <th>Team</th>
+    <th>Nationality</th>
+    <th><a data-ng-click="reverseSort = !reverseSort">Won Matches</a></th>
+    </thead>
+    <tbody>
+
+    <tr data-ng-repeat="team in teams | orderBy: team.stats.won :reverseSort">
+        <td></td>
+        <td>
+            <a ui-sref="teamOne({teamId: team.id})">
+                {{ ::team.name }}
+            </a>
+        </td>
+        <td>
+            <span flag-icon nationality="team.nationality"></span>
+        </td>
+        <td>{{ ::team.stats.won | number }}</td>
+    </tr>
+    </tbody>
+</table>

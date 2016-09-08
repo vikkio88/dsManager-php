@@ -130,6 +130,28 @@
         }
     );
 
+    directives.directive('playerStatsTable', function () {
+        return {
+            restrict: 'AE',
+            replace: false,
+            scope: {
+                players: '=players'
+            },
+            templateUrl: 'app/views/common/stats/playerStatsTable.html'
+        }
+    });
+
+    directives.directive('teamStatsTable', function () {
+        return {
+            restrict: 'AE',
+            replace: false,
+            scope: {
+                teams: '=teams'
+            },
+            templateUrl: 'app/views/common/stats/teamStatsTable.html'
+        }
+    });
+
     directives.directive('teamCompleteRoster', function () {
             return {
                 restrict: 'AE',

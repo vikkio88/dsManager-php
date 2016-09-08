@@ -51,8 +51,8 @@ class MatchResult extends DsManagerModel
     public function getWinnerLoser()
     {
         $isDraw = false;
-        $winner = $this->awayTeam;
-        $loser = $this->homeTeam;
+        $winner = $this->homeTeam;
+        $loser = $this->awayTeam;
         if ($this->goalAway == $this->goalHome) {
             $isDraw = true;
         } else if ($this->goalHome < $this->goalAway) {
