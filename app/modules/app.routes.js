@@ -15,16 +15,16 @@
             function ($stateProvider,
                       $urlRouterProvider,
                       $locationProvider) {
-                /*
-                 Unfortunately laravel router makes this unable to work
-                 $locationProvider.html5Mode({
-                 enabled: true,
-                 requireBase: false
-                 });
-                 */
+
+                //Unfortunately laravel router makes this unable to work
+                $locationProvider.html5Mode({
+                    enabled: true,
+                    requireBase: false
+                });
+
 
                 //Hashbang
-                $locationProvider.hashPrefix("!");
+                //$locationProvider.hashPrefix("!");
 
                 $urlRouterProvider.otherwise("/stats");
 
